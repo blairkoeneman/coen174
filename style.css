@@ -1,15 +1,20 @@
 .overall_container{
-	width: 85%;
+	width: 80%;
 	margin: 0 auto;
 }
 
-.btn-default{
-	position: relative;
-	top: 10px;
-	left: 17px;
+.add_container{
+	width: 80%;
+	margin: 0 auto;
 }
 
 .table{
 	position: relative;
 	top: 50px;
+}
+
+#buttons{
+	position: relative;
+	top: 40px;
+	padding-left: 100px;
 }

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>SCU Equivalents</title>
+    <title>Add Equivalent Courses</title>
 
     <!-- Bootstrap -->
     <link href="style.css" rel="stylesheet">
@@ -18,6 +18,20 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+  <style>
+  
+  .btn-group, input {
+  	position: relative;
+  	left:10px;
+  }
+  
+  textarea {
+  	position: relative;
+  	left:70px;
+  	top: 10px;
+  }
+  
+  </style>
   <body>
     
     
@@ -37,8 +51,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.html">Catalog <span class="sr-only">(current)</span></a></li>
-        <li><a href="add.html">Add Equivalent Courses</a></li>
+        <li><a href="index.html">Catalog</a></li>
+        <li class="active"><a href="add.html">Add Equivalent Courses<span class="sr-only">(current)</span></a></li>
         <li><a href="edit.html">Edit Foundation Courses</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -47,14 +61,11 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<!--End Nav Bar-->
 
 <div class="overall_container">
 	</br>
-	<h4>Search the database for courses from your university that are approved as equivalent SCU Foundation Courses.</h4>
-	</br>
-	
-	<div class="col-md-4">1. Choose SCU Foundation course 
-	</br>
+	Select Foundation Course:
 	<!-- Split button -->
 <div class="btn-group">
   <button type="button" class="btn btn-default">Select course</button>
@@ -67,59 +78,40 @@
     <li><a href="#">COEN 19</a></li>
     <li><a href="#">COEN 20</a></li>
     <li><a href="#">COEN 21</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Select All</a></li>
   </ul>
 </div>
-	
-</div>
-	
 
-	<div class="col-md-4">2. Choose your university course
-	</br>
+</br>
+</br>
+Select External University:
 	<!-- Split button -->
 <div class="btn-group">
-  <button type="button" class="btn btn-default">Select university</button>
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="#">placeholder</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Select All</a></li>
-  </ul>
-</div>
-</br>
-<div class="btn-group" style="top: 10px">
   <button type="button" class="btn btn-default">Select course</button>
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="caret"></span>
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu">
-    <li><a href="#">placeholder</a></li>
+    <li><a href="#">Test university</a></li>
     <li role="separator" class="divider"></li>
-    <li><a href="#">Select All</a></li>
+    <li><a href="#">Add New</a></li>
   </ul>
-</div>	
-	
 </div>
-	
-	<div class="col-md-4">3. View equilvalent courses
-	</br>
-	 <button type="button" class="btn btn-success" style="position:relative; top:10px; left: 17px">Search</button>
-	</div>
 
+</br>
+</br>
+Name of External Course:
+<input type="text" value="">
+<br>
+<br>
+Notes (optional):
+<textarea rows="4" cols="50">
+</textarea>
 
-<table class="table table-striped">
-	<tr>
-    	<th>SCU Foundation Course</th>
-    	<th>University Course</th> 
-    	<th>Notes</th>
-  	</tr>
-</table>
-
+<div id="buttons">
+	<button type="button" class="btn btn-default">Cancel</button>
+	<button style="position:relative; left:20px" type="button" class="btn btn-success">Add to Catalog</button>
+</div>
 
 </div>
 
