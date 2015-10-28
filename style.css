@@ -1,0 +1,15 @@
+.overall_container{
+	width: 85%;
+	margin: 0 auto;
+}
+
+.btn-default{
+	position: relative;
+	top: 10px;
+	left: 17px;
+}
+
+.table{
+	position: relative;
+	top: 50px;
+}
