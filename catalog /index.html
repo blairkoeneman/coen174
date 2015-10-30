@@ -20,10 +20,6 @@
     	<!-- Bootstrap -->
     	<link href="../dist/css/style.css" rel="stylesheet">
     	<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-      <!-- Just in case we don't have file pull it from bootstrap itself -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-
           
 
     <!-- Javascript functions using database -->
@@ -104,13 +100,14 @@
     				<li><a href="#">Select All</a></li>
   				</ul>
 			</div> -->
-    <select class="selectpicker" multiple>
-      <option>COEN 12</option>
-      <option>COEN 19</option>
-      <option>COEN 20</option>
-      <option>COEN 21</option>
+    <select class="selectpicker" id="foundation" name="foundationclasses" onchange="this.form.submit()" multiple title='Choose SCU Classes...' data-selected-text-format="count>2">
+      <option value="All" selected="selected">All Classes</option>
+      <option value="COEN 12">COEN 12</option>
+      <option value="COEN 19">COEN 19</option>
+      <option value="COEN 20">COEN 20</option>
+      <option value="COEN 21">COEN 21</option>
     </select>
-  
+    
 		</div>
 		<!--END CHOOSE SCU COURSE-->
 		
