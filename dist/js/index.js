@@ -1,8 +1,7 @@
 $(document).ready(function(e) {
-	// Parse.initialize("xoKIhEIxEK5SxBRVMcucXhjd2wzFwMKGwSUoynot", "fXKCq8wQgTcOpoBkRhzf2DUZDofbdFp9bM8IL1Eo");
+	Parse.initialize("xoKIhEIxEK5SxBRVMcucXhjd2wzFwMKGwSUoynot", "fXKCq8wQgTcOpoBkRhzf2DUZDofbdFp9bM8IL1Eo");
 	$('.selectpicker').selectpicker({
 		style: 'btn-info',
-		size: 5
 	});
 
 function toggleSelectAll(control) {
@@ -38,12 +37,27 @@ function toggleSelectAll(control) {
     control.data('allOptionIsSelected', allOptionIsSelected);
 }
 	$('#foundation').selectpicker().change(function(){toggleSelectAll($(this));}).trigger('change');
-	// var dropdown = document.getElementByClassName("form-control");
-	// if (dropdown){
-	// 	var Foundation = Parse.Object.extend("Foundation");
-	// 	var query =  new Parse.Query(Foundation);
-	// 	query.ascending("course");
-	// 	for
-	// }
-	// $('form-control')
+
+
+	var dropdown = document.getElementById("university");
+	if (dropdown){
+		var university = Parse.Object.extend("University");
+		var query =  new Parse.Query(university);
+		query.find({
+			success: function(results) {
+				alert("Successfully retrieved " + results.length + " universities.");
+
+				for (var i = 0; i < results.length; i++) {
+					var object = "<option value='" + results[i].get('name') +"'>" + results[i].get('name') + "</option>";
+					$('#university').append(object);
+				}
+				
+				$('#university').selectpicker('refresh');
+
+			},
+			error: function(error) {
+				alert("Error: " + error.code + " " + error.message);
+			}
+		});
+	}
 });
