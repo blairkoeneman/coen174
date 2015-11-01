@@ -48,7 +48,7 @@ function toggleSelectAll(control) {
 				alert("Successfully retrieved " + results.length + " universities.");
 
 				for (var i = 0; i < results.length; i++) {
-					var object = "<option value='" + results[i].get('name') +"'>" + results[i].get('name') + "</option>";
+					var object = "<option value='" + results[i].id +"'>" + results[i].get('name') + "</option>";
 					$('#university').append(object);
 				}
 				
@@ -60,4 +60,38 @@ function toggleSelectAll(control) {
 			}
 		});
 	}
+
+	$('#university').on('change', function(){
+		var classlist = document.getElementById("courses");
+		if (classlist){
+			
+
+			var courses = Parse.Object.extend("Courses");
+			var university = Parse.Object.extend("University");
+			university.id = $('#university :selected').val();
+
+			var innerQuery = new Parse.Query(courses);
+			innerQuery.exists(university.id);
+
+			var query = new Parse.Query(university);
+
+			alert(university);
+			query.matchesQuery("course", innerQuery);
+			query.find({
+				success: function(results) {
+					alert("Successfully retrieved " + results.length + " courses.");
+
+					for( var i = 0; i <results.length; i++) {
+							var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option>";
+							$('#courses').append(object);
+					}
+
+					$('#courses').selectpicker('refresh');
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+		}
+	});
 });
