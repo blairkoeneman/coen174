@@ -92,4 +92,78 @@ function toggleSelectAll(control) {
 			});
 		}
 	});
+
+	$('#search').click(function(){
+		var list = new Array();
+		var myCourses='';
+		var selected = $('#foundation :selected').val();
+
+		var Courses = Parse.Object.extend("Courses");
+
+		//Need to make universitySelect a Parse Object of "University"
+
+		var University = Parse.Object.extend("University");
+		var universitySelect = new University();
+		var uniSelect = $('#university :selected').val();
+		universitySelect.id = $('#university :selected').val();
+		if( selected == 'All' || selected == undefined){
+			// var Foundation = Parse.Object.extend("Foundation");
+
+			// var query = new Parse.Query(Foundation);
+			// var foundationList = new Array();
+
+			// query.find({
+			// 	success: function(results) {
+			// 		alert("Successfully retrieved " + results.length + " foundation courses.");
+
+			// 		for( var i = 0; i<results.length; i++) {
+			// 			var foundationList = results[i].id;
+			// 		}
+			// 	},
+			// 	error: function(error) {
+			// 		alert("Error: " + error.code + " " + error.message);
+			// 	}
+			// });
+			if(uniSelect == undefined){
+				alert("You must select a University if you want to search for all classes");
+				var query = new Parse.Query(Courses);
+				query.find({
+					success: function(results) {
+						alert("in find");
+						alert("Successfully retrieved " + results.length + "equivalent courses.");
+						for(var i = 0; i < results.length; i++) {
+							var object = results[i];
+							myCourses+='<tr><td>' + object.get('equivalency') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
+						}
+						(function($) {
+							$('#table-catalog').append(myCourses);
+						})(jQuery);
+					},
+					error: function(error) {
+						alert("Error: " + error.code + " " + error.message);
+					}
+				});
+			}
+
+			var query = new Parse.Query(Courses);
+			query.equalTo("university", universitySelect);
+
+			query.find({
+				success: function(results) {
+					alert("Successfully retrieved " + results.length + "equivalent courses.");
+					for(var i = 0; i < results.length; i++) {
+						var object = results[i];
+						myCourses+='<tr><td>' + object.get('equivalency') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
+					}
+					(function($) {
+						$('#table-catalog').append(myCourses);
+					})(jQuery);
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+
+		}
+	});
 });

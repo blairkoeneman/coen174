@@ -101,7 +101,7 @@
     				<li><a href="#">Select All</a></li>
   				</ul>
 			</div> -->
-    <select class="selectpicker" id="foundation" name="foundationclasses" multiple title='Choose SCU Classes...' data-selected-text-format="count>2">
+    <select class="selectpicker" id="foundation" name="foundationclasses" multiple title='Choose SCU Classes...'>
       <option selected ="selected" value="All">All Classes</option>
       <option value="COEN 12">COEN 12</option>
       <option value="COEN 19">COEN 19</option>
@@ -154,17 +154,17 @@
 		<!--SEARCH EQUIVALENTS-->
 		<div class="col-md-4">3. View equivalent courses
 			</br>
-	 		<button type="button" class="btn btn-success" style="position:relative; top:10px; left: 17px">Search</button>
+	 		<button type="button" class="btn btn-success" id="search" style="position:relative; top:10px; left: 17px">Search</button>
 		</div>
 		<!--END SEARCH EQUIVALENTS-->
 
 		<!--TABLE-->
-		<table class="table table-striped">
-			<tr>
+		<table class="table table-striped" id="table-catalog">
+			<thead>
     			<th>SCU Foundation Course</th>
     			<th>University Course</th> 
     			<th>Notes</th>
-  			</tr>
+  		</thead>
 		</table>
 		<!--END TABLE-->
 	</div>
