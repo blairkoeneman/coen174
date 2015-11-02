@@ -65,25 +65,23 @@ function toggleSelectAll(control) {
 		var classlist = document.getElementById("courses");
 		if (classlist){
 			
+			$('#courses').empty();
+			var Courses = Parse.Object.extend("Courses");
 
-			var courses = Parse.Object.extend("Courses");
-			var university = Parse.Object.extend("University");
-			university.id = $('#university :selected').val();
+			var University = Parse.Object.extend("University");
+			var uniCourse = new University();
+			uniCourse.id = $('#university :selected').val();
+			var query = new Parse.Query(Courses);
 
-			var innerQuery = new Parse.Query(courses);
-			innerQuery.exists(university.id);
+			query.equalTo("university", uniCourse);
 
-			var query = new Parse.Query(university);
-
-			alert(university);
-			query.matchesQuery("course", innerQuery);
 			query.find({
 				success: function(results) {
 					alert("Successfully retrieved " + results.length + " courses.");
 
 					for( var i = 0; i <results.length; i++) {
-							var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option>";
-							$('#courses').append(object);
+						var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option>";
+						$('#courses').append(object);
 					}
 
 					$('#courses').selectpicker('refresh');
