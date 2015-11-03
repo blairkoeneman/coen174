@@ -170,17 +170,18 @@ function toggleSelectAll(control) {
 			
 				var query = new Parse.Query(Courses);
 				query.equalTo("courseEquivalent",selected);
-				var uniQuery = new Parse.Query(Courses);
-				uniQuery.equalTo("university", universitySelect);
+				query.equalTo("university", universitySelect);
 
-				var mainQuery = Parse.Query.or(query,uniQuery);
-				mainQuery.find({
+				query.find({
 					success: function(results) {
-						alert("in find");
 						for(var i = 0; i < results.length; i++) {
+							alert(results[i]);
 							var object = results[i];
 							myCourses += '<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
 						}
+						(function($) {
+						$('#table-catalog').append(myCourses);
+					})(jQuery);
 
 					},
 					error: function(error) {
