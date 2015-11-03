@@ -3,7 +3,7 @@ $(document).ready(function(e) {
 	$('.selectpicker').selectpicker({
 		style: 'btn-info',
 	});
-
+	
 function toggleSelectAll(control) {
     var allOptionIsSelected = (control.val() || []).indexOf("All") > -1;
     function valuesOf(elements) {
@@ -60,10 +60,39 @@ function toggleSelectAll(control) {
 	}
 });
 
-//added this
+
+
+
+
+function checkDup(foundationCourse, universityName, courseNumber, courses) {
+	
+	var query = new Parse.Query(Courses);
+	query.equalTo("course", courseNumber);
+		query.find({
+  			success: function(results) {
+    		// Do something with the returned Parse.Object values
+    			for (var i = 0; i < results.length; i++) {
+    				var object = results[i];
+      				var uName = object.get('universityName');
+      				var fCourse = object.get('courseEquivalent');
+      				if((uName == universityName) && (fCourse == foundationCourse)){
+      					alert("return found");
+						return 1;
+					}		
+    			}
+  			},
+  			error: function(error) {
+    		alert("Error: " + error.code + " " + error.message);
+  			}
+		});
+		
+	alert("returning 0");
+	return 0;
+}
+
 function addCourse() {
-	alert('form');
-	//correct
+
+	//variables
 	var foundationCourse = $('#foundation :selected').text();
 	var universityName = $('#university :selected').text();
 	var courseNumber = $('#course_number').text();
@@ -74,10 +103,17 @@ function addCourse() {
 	var courseNumber = $('#course_number').val();
 	var notes = $('#notes').val();
 	
-//edit this
-    var Courses = Parse.Object.extend("Courses");
-    var courses = new Courses();
-    
+	var Courses = Parse.Object.extend("Courses");
+	var courses = new Courses();
+	
+	//check duplicates
+	
+	//var duplicate = checkDup(foundationCourse, universityName, courseNumber, courses);
+	//if(duplicate == 1){
+	//	alert("duplicate found - return");
+	//	return;
+	//}	
+
     courses.set("courseEquivalent", foundationCourse);
     courses.set("universityName", universityName);
 	courses.set("course", courseNumber);
@@ -88,7 +124,7 @@ function addCourse() {
     		// Execute any logic that should take place after the object is saved.
     		alert('New object created with objectId: ' + courses.id);
   		},
-  		error: function(gameScore, error) {
+  		error: function(courses, error) {
     		// Execute any logic that should take place if the save fails.
     		// error is a Parse.Error with an error code and message.
     		alert('Failed to create new object, with error code: ' + error.message);
@@ -96,4 +132,5 @@ function addCourse() {
 	});
 }
 
-//queries - basic queries
+
+
