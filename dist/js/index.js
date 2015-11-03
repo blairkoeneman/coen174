@@ -48,7 +48,7 @@ function toggleSelectAll(control) {
 				alert("Successfully retrieved " + results.length + " universities.");
 
 				for (var i = 0; i < results.length; i++) {
-					var object = "<option value='" + results[i].get('name') +"'>" + results[i].get('name') + "</option>";
+					var object = "<option value='" + results[i].id +"'>" + results[i].get('name') + "</option>";
 					$('#university').append(object);
 				}
 				
@@ -60,4 +60,136 @@ function toggleSelectAll(control) {
 			}
 		});
 	}
+
+	$('#university').on('change', function(){
+		var classlist = document.getElementById("courses");
+		if (classlist){
+			
+			$('#courses').empty();
+			var Courses = Parse.Object.extend("Courses");
+
+			var University = Parse.Object.extend("University");
+			var uniCourse = new University();
+			uniCourse.id = $('#university :selected').val();
+			var query = new Parse.Query(Courses);
+
+			query.equalTo("university", uniCourse);
+
+			query.find({
+				success: function(results) {
+					alert("Successfully retrieved " + results.length + " courses.");
+
+					for( var i = 0; i <results.length; i++) {
+						var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option>";
+						$('#courses').append(object);
+					}
+
+					$('#courses').selectpicker('refresh');
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+		}
+	});
+
+	$('#search').click(function(){
+		$('#table-catalog tbody').remove();
+		//String to hold table entries
+		var myCourses='';
+		//holds the select menu value
+		var selected = $('#foundation :selected').val();
+		var Courses = Parse.Object.extend("Courses");
+
+		//Need to make universitySelect a Parse Object of "University"
+
+		var University = Parse.Object.extend("University");
+		var universitySelect = new University();
+		universitySelect.id = $('#university :selected').val();
+		if( selected == 'All' || (selected == undefined && universitySelect != undefined)){
+			// var Foundation = Parse.Object.extend("Foundation");
+
+			// var query = new Parse.Query(Foundation);
+			// var foundationList = new Array();
+
+			// query.find({
+			// 	success: function(results) {
+			// 		alert("Successfully retrieved " + results.length + " foundation courses.");
+
+			// 		for( var i = 0; i<results.length; i++) {
+			// 			var foundationList = results[i].id;
+			// 		}
+			// 	},
+			// 	error: function(error) {
+			// 		alert("Error: " + error.code + " " + error.message);
+			// 	}
+			// });
+			// if(uniSelect == undefined){
+			// 	alert("You must select a University if you want to search for all classes");
+			// 	var query = new Parse.Query(Courses);
+			// 	query.find({
+			// 		success: function(results) {
+			// 			alert("in find");
+			// 			alert("Successfully retrieved " + results.length + "equivalent courses.");
+			// 			for(var i = 0; i < results.length; i++) {
+			// 				var object = results[i];
+			// 				var equivalence = request.object.get("equivalency").course;
+
+			// 				myCourses+='<tr><td>' + equivalence + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
+			// 			}
+			// 			(function($) {
+			// 				$('#table-catalog').append(myCourses);
+			// 			})(jQuery);
+			// 		},
+			// 		error: function(error) {
+			// 			alert("Error: " + error.code + " " + error.message);
+			// 		}
+			// 	});
+			// }
+
+			var query = new Parse.Query(Courses);
+			query.equalTo("university", universitySelect);
+
+			query.find({
+				success: function(results) {
+					alert("Successfully retrieved " + results.length + "equivalent courses.");
+					for(var i = 0; i < results.length; i++) {
+						var object = results[i];
+						myCourses+='<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
+					}
+					(function($) {
+						$('#table-catalog').append(myCourses);
+					})(jQuery);
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+
+		}else{
+			
+				var query = new Parse.Query(Courses);
+				query.equalTo("courseEquivalent",selected);
+				var uniQuery = new Parse.Query(Courses);
+				uniQuery.equalTo("university", universitySelect);
+
+				var mainQuery = Parse.Query.or(query,uniQuery);
+				mainQuery.find({
+					success: function(results) {
+						alert("in find");
+						for(var i = 0; i < results.length; i++) {
+							var object = results[i];
+							myCourses += '<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
+						}
+
+					},
+					error: function(error) {
+						alert("Error: " + error.code + " " + error.message);
+					}
+
+				});
+			}
+
+		
+	});
 });
