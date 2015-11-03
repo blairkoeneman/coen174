@@ -59,12 +59,14 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="#">SCU Course Catalog</a>
+      		<a class="navbar-brand" href="#">SCU Equivalents</a>
     	</div>
     	<!-- Collect the nav links, forms, and other content for toggling -->
     	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       		<ul class="nav navbar-nav">
         		<li class="active"><a href="index.html">Catalog <span class="sr-only">(current)</span></a></li>
+        		<li><a href="add.html">Add Equivalent Courses</a></li>
+        		<li><a href="edit.html">Edit Foundation Courses</a></li>
       		</ul>
       		<ul class="nav navbar-nav navbar-right">
         		<li><a href="#">Log In</a></li>
@@ -77,9 +79,8 @@
 	<!--CONTAINER-->
 	<div class="overall_container">
 		</br>
-		<h4>Search the catalog for courses from your university that are approved as equivalent SCU Foundation Courses.</h4>
+		<h4>Search the database for courses from your university that are approved as equivalent SCU Foundation Courses.</h4>
 		</br>
-    <h5>To search for all equivalent course in your university select "All Classes" in step 1 and ignore "Choose your class" option in step 2.</h5>
 		<!--CHOOSE SCU COURSE-->
 		<div class="col-md-4">1. Choose SCU Foundation course 
 <!-- 		</br> -->
@@ -99,7 +100,7 @@
     				<li><a href="#">Select All</a></li>
   				</ul>
 			</div> -->
-    <select class="selectpicker" id="foundation" name="foundationclasses" multiple title='Choose SCU Classes...'>
+    <select class="selectpicker" id="foundation" name="foundationclasses" multiple title='Choose SCU Classes...' data-selected-text-format="count>2">
       <option selected ="selected" value="All">All Classes</option>
       <option value="COEN 12">COEN 12</option>
       <option value="COEN 19">COEN 19</option>
@@ -126,8 +127,7 @@
     				<li><a href="#">Select All</a></li>
   				</ul>
 			</div> -->
-      <select class="selectpicker" id="university" name="universityselect" title='Choose your University...'>
-        
+      <select class="selectpicker" id="university" name="universityselect"  title='Choose your University...'>
       </select>
 			</br>
 
@@ -145,6 +145,11 @@
 			</div>	 -->
     </br>
       <select class="selectpicker" id="courses" name="courseselect"  title='Choose your class...'>
+        <option value="All">All Classes</option>
+        <option value="COEN 12">COEN 12</option>
+        <option value="COEN 19">COEN 19</option>
+        <option value="COEN 20">COEN 20</option>
+        <option value="COEN 21">COEN 21</option>
       </select>
 		</div>
 		<!--END CHOOSE UNIVERSITY COURSE-->
@@ -152,20 +157,17 @@
 		<!--SEARCH EQUIVALENTS-->
 		<div class="col-md-4">3. View equivalent courses
 			</br>
-	 		<button type="button" class="btn btn-success" id="search" style="position:relative; top:10px; left: 17px">Search</button>
+	 		<button type="button" class="btn btn-success" style="position:relative; top:10px; left: 17px">Search</button>
 		</div>
 		<!--END SEARCH EQUIVALENTS-->
 
 		<!--TABLE-->
-		<table class="table table-striped" id="table-catalog">
-			<thead>
+		<table class="table table-striped">
+			<tr>
     			<th>SCU Foundation Course</th>
     			<th>University Course</th> 
     			<th>Notes</th>
-  		</thead>
-      <tbody>
-        
-      </tbody>
+  			</tr>
 		</table>
 		<!--END TABLE-->
 	</div>

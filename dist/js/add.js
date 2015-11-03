@@ -46,7 +46,7 @@ function toggleSelectAll(control) {
 		query.find({
 			success: function(results) {
 				for (var i = 0; i < results.length; i++) {
-					var object = "<option value='" + results[i].get('name') +"'>" + results[i].get('name') + "</option>";
+					var object = "<option value='" + results[i].get("name") +"'>" + results[i].get("name") + "</option>";
 					$('#university').append(object);
 				}
 				
@@ -59,8 +59,6 @@ function toggleSelectAll(control) {
 		});
 	}
 });
-
-
 
 
 
@@ -94,14 +92,20 @@ function addCourse() {
 
 	//variables
 	var foundationCourse = $('#foundation :selected').text();
-	var universityName = $('#university :selected').text();
+
 	var courseNumber = $('#course_number').text();
 	var notes = $('#notes').text();
 	
 	var foundationCourse = $('#foundation :selected').val();
-	var universityName = $('#university :selected').val();
+	//var universityName = $('#university :selected').val();
 	var courseNumber = $('#course_number').val();
 	var notes = $('#notes').val();
+	
+	//gather info from other
+	if($('#university :selected').text() == "Other") {
+		alert("other detected");
+		var universityName = $('#other_text').val();
+	}
 	
 	var Courses = Parse.Object.extend("Courses");
 	var courses = new Courses();
