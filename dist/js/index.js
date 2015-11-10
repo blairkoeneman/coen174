@@ -149,6 +149,7 @@ function toggleSelectAll(control) {
 
 			var query = new Parse.Query(Courses);
 			query.equalTo("university", universitySelect);
+			query.equalTo("courseEquivalent", selected);
 
 			query.find({
 				success: function(results) {
