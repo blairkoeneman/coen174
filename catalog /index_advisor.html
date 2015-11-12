@@ -49,7 +49,7 @@
   	<body>
     
 	<!--NAV BAR-->    
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-inverse">
   	<div class="container-fluid">
     	<!-- Brand and toggle get grouped for better mobile display -->
     	<div class="navbar-header">
@@ -64,12 +64,12 @@
     	<!-- Collect the nav links, forms, and other content for toggling -->
     	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       		<ul class="nav navbar-nav">
-        		<li class="active"><a href="index.html">Catalog <span class="sr-only">(current)</span></a></li>
-        		<li><a href="add.html">Add Equivalent Courses</a></li>
-        		<li><a href="edit.html">Edit Foundation Courses</a></li>
+        		<li class="active"><a href="index_advisor.html">Catalog <span class="sr-only">(current)</span></a></li>
+			<li><a href="add.html">Add to Catalog</a></li>
+			<li><a href="add.html">Delete from Catalog</a></li>
       		</ul>
       		<ul class="nav navbar-nav navbar-right">
-        		<li><a href="#">Log In</a></li>
+        		<li><a href="login.html">Log In</a></li>
       		</ul>
     	</div><!-- /.navbar-collapse -->
   	</div><!-- /.container-fluid -->
@@ -83,7 +83,8 @@
     <h5>To search for all equivalent course in your university select "All Classes" in step 1 and ignore "Choose your class" option in step 2.</h5>
   </br>
 		<!--CHOOSE SCU COURSE-->
-		<div class="col-md-4">1. Choose SCU Foundation course 
+		<div class="col-md-4">Choose SCU Foundation course
+		<br>
 <!-- 		</br> -->
 			<!-- Split button -->
 			<!-- <div class="btn-group">
@@ -113,7 +114,7 @@
 		<!--END CHOOSE SCU COURSE-->
 		
 		<!--CHOOSE UNIVERSITY COURSE-->
-		<div class="col-md-4">2. Choose your university course
+		<div class="col-md-4">Choose your university course
 			</br>
 			<!-- Split button -->
 <!-- 			<div class="btn-group">
@@ -152,9 +153,9 @@
 		<!--END CHOOSE UNIVERSITY COURSE-->
 		
 		<!--SEARCH EQUIVALENTS-->
-		<div class="col-md-4">3. View equivalent courses
+		<div class="col-md-4">View equivalent courses
 			</br>
-	 		<button type="button" class="btn btn-success" id="search" style="position:relative; top:10px; left: 17px">Search</button>
+	 		<button type="button" class="btn btn-success" id="search" style="background-color: maroon; border-color: maroon;">Search</button>
 		</div>
 		<!--END SEARCH EQUIVALENTS-->
 

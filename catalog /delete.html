@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    	<title>Add Equivalent Courses</title>
+    	<title>Delete from Catalog</title>
 
 	      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -18,14 +18,14 @@
      <link rel="stylesheet" href="../dist/css/bootstrap-select.css">
 
     	<!-- Bootstrap -->
+    	<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
     	<link href="../dist/css/style.css" rel="stylesheet">
-	    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
 	    
 	        <!-- Javascript functions using database -->
 
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.6.5.min.js"></script>
-    <script src="../dist/js/login.js" type="text/javascript" ></script>
+    <script src="../dist/js/add.js" type="text/javascript" ></script>
 
 	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,19 +35,7 @@
     	<![endif]-->
   	</head>
   	<body>
-  
-	<style>
-	.btn-group, input {
-		position: relative;
-  		left:10px;
-  	}
-  
-  	textarea {
-  		position: relative;
-  		left:70px;
-  		top: 10px;
-  	}
-	</style>
+
   
 	<body>
 		<!--NAV BAR-->    
@@ -66,10 +54,12 @@
     			<!-- Collect the nav links, forms, and other content for toggling -->
     			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       				<ul class="nav navbar-nav">
-        				<li><a href="index_student.html">Catalog</a></li>
+        				<li><a href="index_advisor.html">Catalog</a></li>
+        				<li><a href="add.html">Add to Catalog</a></li>
+        				<li class="active"><a href="delete.html">Delete from Catalog<span class="sr-only">(current)</span></a></li>
       				</ul>
       				<ul class="nav navbar-nav navbar-right">
-        				<li class="active"><a href="login.html">Log In<span class="sr-only">(current)</span></a></li>
+        				<li><a href="login.html">Log In</a></li>
       				</ul>
     			</div><!-- /.navbar-collapse -->
   			</div><!-- /.container-fluid -->
@@ -78,16 +68,61 @@
 	
 	<!--CONTAINER-->
 	<div class="overall_container">
-		Username:
-		<input type="text" id="username">
+
+	<!--LEFT SIDE-->
+	<div id="add-left" class="col-md-4">
+	<form method="post">
+		<h3>Delete Equivalent Course</h3><br>
+		<select class="selectpicker" id="foundation" name="foundationselect"  title='Select Foundation Course'>
+    	</select>
+		<!-- END SELECT FOUNDATION COURSE-->
+
+		<!--SELECT EXTERNAL UNIVERSITY-->
+		</br>
+		</br>
+      <select class="selectpicker" id="university" name="universityselect"  title='Select External University'> 
+      	<option id="other">Other</option>
+      </select>
+		<!--END SELECT EXTERNAL UNIVERSITY-->
+
+		<!--COURSE-->
+		</br>
+		</br>
+		<select class="selectpicker" id="courses" name="courseselect"  title='Select External Course'></select>
 		<br>
 		<br>
-		Password:
-		<input type="password" id="password">
-		<div id="buttons">
-			<button type="button" class="btn btn-default" href="index.html">Cancel</button>
-			<button id="login" type="button" class="btn btn-success">Log In</button>
-		</div>
+		<!--COURSE-->
+
+		<button id="add" type="button" onclick="deleteCourse()" class="btn btn-success">Delete Equivalency</button>
+	
+	</form>
+	</div>
+<!--END LEFT SIDE-->
+
+<!--MIDDLE-->
+	<div id="add-middle" class="col-md-4">
+	<form method="post">
+		<h3>Delete External University</h3>
+		<br>
+		<select class="selectpicker" id="university2" name="universityselect"  title='Select External University'> </select>
+		<br>
+		<br>
+		<button id="add" type="button" onclick="deleteUniversity()" class="btn btn-success">Delete University</button>
+	</form>
+	</div>
+<!--END MIDDLE-->
+
+<!-RIGHT-->
+	<div id="add-right" class="col-md-4">
+	<form method="post">
+		<h3>Delete Foundation Course</h3><br>
+		<select class="selectpicker" id="foundation2" name="foundationselect"  title='Select Foundation Course'></select>
+		<br>
+		<br>
+		<button id="add" type="button" onclick="deleteFoundation()" class="btn btn-success">Delete Foundation Course</button>
+	</form>
+	</div>
+<!--END RIGHT-->
 
 	</div>
 	<!--END CONTAINER-->

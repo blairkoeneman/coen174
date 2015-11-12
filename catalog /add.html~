@@ -25,7 +25,7 @@
 
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.6.5.min.js"></script>
-    <script src="../dist/js/login.js" type="text/javascript" ></script>
+    <script src="../dist/js/add.js" type="text/javascript" ></script>
 
 	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,7 +51,7 @@
   
 	<body>
 		<!--NAV BAR-->    
-		<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-default">
   			<div class="container-fluid">
     		<!-- Brand and toggle get grouped for better mobile display -->
     			<div class="navbar-header">
@@ -66,10 +66,12 @@
     			<!-- Collect the nav links, forms, and other content for toggling -->
     			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       				<ul class="nav navbar-nav">
-        				<li><a href="index_student.html">Catalog</a></li>
+        				<li><a href="index.html">Catalog</a></li>
+        				<li class="active"><a href="add.html">Add Equivalent Courses<span class="sr-only">(current)</span></a></li>
+        				<li><a href="edit.html">Edit Foundation Courses</a></li>
       				</ul>
       				<ul class="nav navbar-nav navbar-right">
-        				<li class="active"><a href="login.html">Log In<span class="sr-only">(current)</span></a></li>
+        				<li><a href="login.html">Log In</a></li>
       				</ul>
     			</div><!-- /.navbar-collapse -->
   			</div><!-- /.container-fluid -->
@@ -78,16 +80,50 @@
 	
 	<!--CONTAINER-->
 	<div class="overall_container">
-		Username:
-		<input type="text" id="username">
+		<!--SELECT FOUNDATION COURSE-->
+		</br>
+
+<form method="post">
+		Select Foundation Course:
+		<select class="selectpicker" id="foundation" name="foundationclasses" title='Choose SCU Classes...' data-selected-text-format="count>2">
+      		<option value="dOxUIgzZ0R">COEN 12</option>
+      		<option value="MjplfmyXfV">COEN 19</option>
+      		<option value="bFXtZNNQXw">COEN 20</option>
+      		<option value="xHi0iiVHvS">COEN 21</option>
+    	</select>
+		<!-- END SELECT FOUNDATION COURSE-->
+
+		<!--SELECT EXTERNAL UNIVERSITY-->
+		</br>
+		</br>
+		Select External University:
+      <select class="selectpicker" id="university" name="universityselect"  title='Choose your University...'> 
+      	<option id="other" >Other</option>
+      </select>
+      	</br></br>
+      	Other: 
+		<input type="text" id="other_text">
+		<!--END SELECT EXTERNAL UNIVERSITY-->
+
+		<!--NAME OF EXTERNAL UNIVERSITY-->
+		</br>
+		</br>
+		Course Number:
+		<input type="text" id="course_number">
 		<br>
 		<br>
-		Password:
-		<input type="password" id="password">
+		<!--NAME OF EXTERNAL UNIVERSITY-->
+		
+		<!--NOTES-->
+		Notes (optional):
+		<textarea id="notes" rows="4" cols="50"></textarea>
+		<!--NOTES-->
+
 		<div id="buttons">
-			<button type="button" class="btn btn-default" href="index.html">Cancel</button>
-			<button id="login" type="button" class="btn btn-success">Log In</button>
+			<button type="button" class="btn btn-default">Cancel</button>
+			<button id="add" type="button" onclick="addCourse()" class="btn btn-success">Add to Catalog</button>
 		</div>
+</form>
 
 	</div>
 	<!--END CONTAINER-->

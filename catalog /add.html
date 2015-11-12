@@ -18,8 +18,8 @@
      <link rel="stylesheet" href="../dist/css/bootstrap-select.css">
 
     	<!-- Bootstrap -->
+    	<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
     	<link href="../dist/css/style.css" rel="stylesheet">
-	    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
 	    
 	        <!-- Javascript functions using database -->
 
@@ -35,23 +35,11 @@
     	<![endif]-->
   	</head>
   	<body>
-  
-	<style>
-	.btn-group, input {
-		position: relative;
-  		left:10px;
-  	}
-  
-  	textarea {
-  		position: relative;
-  		left:70px;
-  		top: 10px;
-  	}
-	</style>
+
   
 	<body>
 		<!--NAV BAR-->    
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-inverse">
   			<div class="container-fluid">
     		<!-- Brand and toggle get grouped for better mobile display -->
     			<div class="navbar-header">
@@ -66,9 +54,9 @@
     			<!-- Collect the nav links, forms, and other content for toggling -->
     			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       				<ul class="nav navbar-nav">
-        				<li><a href="index.html">Catalog</a></li>
-        				<li class="active"><a href="add.html">Add Equivalent Courses<span class="sr-only">(current)</span></a></li>
-        				<li><a href="edit.html">Edit Foundation Courses</a></li>
+        				<li><a href="index_advisor.html">Catalog</a></li>
+        				<li class="active"><a href="add.html">Add to Catalog<span class="sr-only">(current)</span></a></li>
+        				<li><a href="delete.html">Delete from Catalog</a></li>
       				</ul>
       				<ul class="nav navbar-nav navbar-right">
         				<li><a href="login.html">Log In</a></li>
@@ -80,29 +68,20 @@
 	
 	<!--CONTAINER-->
 	<div class="overall_container">
-		<!--SELECT FOUNDATION COURSE-->
-		</br>
 
-<form method="post">
-		Select Foundation Course:
-		<select class="selectpicker" id="foundation" name="foundationclasses" title='Choose SCU Classes...' data-selected-text-format="count>2">
-      		<option value="COEN 12">COEN 12</option>
-      		<option value="COEN 19">COEN 19</option>
-      		<option value="COEN 20">COEN 20</option>
-      		<option value="COEN 21">COEN 21</option>
-    	</select>
+	<!--LEFT SIDE-->
+	<div id="add-left" class="col-md-4">
+	<form method="post">
+		<h3>Add Equivalent Course</h3><br>
+      <select class="selectpicker" id="foundation" name="foundationselect"  title='Select Foundation Course'></select>
 		<!-- END SELECT FOUNDATION COURSE-->
 
 		<!--SELECT EXTERNAL UNIVERSITY-->
 		</br>
 		</br>
-		Select External University:
-      <select class="selectpicker" id="university" name="universityselect"  title='Choose your University...'> 
-      	<option value="Other">Other</option>
+      <select class="selectpicker" id="university" name="universityselect"  title='Select External University'> 
+      	<option id="other">Other</option>
       </select>
-      	</br></br>
-      	Other: 
-		<input type="text" id="other">
 		<!--END SELECT EXTERNAL UNIVERSITY-->
 
 		<!--NAME OF EXTERNAL UNIVERSITY-->
@@ -116,14 +95,43 @@
 		
 		<!--NOTES-->
 		Notes (optional):
-		<textarea id="notes" rows="4" cols="50"></textarea>
+		<br>
+		<textarea id="notes" rows="3" cols="40"></textarea>
 		<!--NOTES-->
+		<br>
+		<br>
+		<button id="add" type="button" onclick="addCourse()" class="btn btn-success">Add Equivalency</button>
+	
+	</form>
+	</div>
+<!--END LEFT SIDE-->
 
-		<div id="buttons">
-			<button type="button" class="btn btn-default">Cancel</button>
-			<button id="add" type="button" onclick="addCourse()" class="btn btn-success">Add to Catalog</button>
-		</div>
-</form>
+<!--MIDDLE-->
+	<div id="add-middle" class="col-md-4">
+	<form method="post">
+		<h3>Add External University</h3>
+		<br>
+		University Name:
+		<input type="text" id="newUniversity">
+		<br>
+		<br>
+		<button id="add" type="button" onclick="addUniversity()" class="btn btn-success">Add University</button>
+	</form>
+	</div>
+<!--END MIDDLE-->
+
+<!-RIGHT-->
+	<div id="add-right" class="col-md-4">
+	<form method="post">
+		<h3>Add Foundation Course</h3><br>
+		Course Name:
+		<input type="text" id="newFoundation">
+		<br>
+		<br>
+		<button id="add" type="button" onclick="addFoundation()" class="btn btn-success">Add Foundation Course</button>
+	</form>
+	</div>
+<!--END RIGHT-->
 
 	</div>
 	<!--END CONTAINER-->
