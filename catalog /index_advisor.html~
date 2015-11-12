@@ -82,8 +82,7 @@
     <h5>To search for all equivalent course in your university select "All Classes" in step 1 and ignore "Choose your class" option in step 2.</h5>
   </br>
 		<!--CHOOSE SCU COURSE-->
-		<div class="col-md-4">Choose SCU Foundation course
-		<br>
+		<div class="col-md-4">1. Choose SCU Foundation course 
 <!-- 		</br> -->
 			<!-- Split button -->
 			<!-- <div class="btn-group">
@@ -113,7 +112,7 @@
 		<!--END CHOOSE SCU COURSE-->
 		
 		<!--CHOOSE UNIVERSITY COURSE-->
-		<div class="col-md-4">Choose your university course
+		<div class="col-md-4">2. Choose your university course
 			</br>
 			<!-- Split button -->
 <!-- 			<div class="btn-group">
@@ -152,7 +151,7 @@
 		<!--END CHOOSE UNIVERSITY COURSE-->
 		
 		<!--SEARCH EQUIVALENTS-->
-		<div class="col-md-4">View equivalent courses
+		<div class="col-md-4">3. View equivalent courses
 			</br>
 	 		<button type="button" class="btn btn-success" id="search" style="position:relative; top:10px; left: 17px">Search</button>
 		</div>
