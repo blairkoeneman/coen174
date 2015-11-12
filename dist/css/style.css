@@ -1,5 +1,5 @@
 .overall_container{
-	width: 80%;
+	width: 85%;
 	margin: 0 auto;
 }
 
@@ -8,8 +8,38 @@
 	top: 50px;
 }
 
-#buttons{
-	position: relative;
-	top: 40px;
-	padding-left: 100px;
+#add-left, #add-middle, #add-right{
+	background-color: #f2f2f2;
+	padding: 0px 25px 25px 25px;
+	border: 10px solid white;
+}
+
+.btn-success {
+	background-color: maroon;
+	border-color: maroon;
+	color: white;
+}
+
+.btn-success:hover {
+	color: white;
+}
+
+.btn-white {
+	background-color: white;
+	border-color: #cbcbcb;
+	color: black;
+}
+
+.btn-white:hover{
+	background-color: white;
+}
+
+.btn-grey {
+	background-color: #e5e5e5;
+	border-color: #e5e5e5;
+	color: black;
+}
+
+.btn-grey:hover{
+	background-color: #e5e5e5;
 }
