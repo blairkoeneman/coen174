@@ -4,43 +4,60 @@ $(document).ready(function(e) {
 		style: 'btn-grey',
 	});
 
-function toggleSelectAll(control) {
-    var allOptionIsSelected = (control.val() || []).indexOf("All") > -1;
-    function valuesOf(elements) {
-        return $.map(elements, function(element) {
-            return element.value;
-        });
-    }
+// function toggleSelectAll(control) {
+//     var allOptionIsSelected = (control.val() || []).indexOf("All") > -1;
+//     function valuesOf(elements) {
+//         return $.map(elements, function(element) {
+//             return element.value;
+//         });
+//     }
 
-    if (control.data('allOptionIsSelected') != allOptionIsSelected) {
-        // User clicked 'All' option
-        if (allOptionIsSelected) {
-            // Can't use .selectpicker('selectAll') because multiple "change" events will be triggered
-            control.selectpicker('val', valuesOf(control.find('option')));
-        } else {
-            control.selectpicker('val', []);
-        }
-    } else {
-        // User clicked other option
-        if (allOptionIsSelected && control.val().length != control.find('option').length) {
-            // All options were selected, user deselected one option
-            // => unselect 'All' option
-            control.selectpicker('val', valuesOf(control.find('option:selected[value!=All]')));
-            allOptionIsSelected = false;
-        } else if (!allOptionIsSelected && control.val().length == control.find('option').length - 1) {
-            // Not all options were selected, user selected all options except 'All' option
-            // => select 'All' option too
-            control.selectpicker('val', valuesOf(control.find('option')));
-            allOptionIsSelected = true;
-        }
-    }
-    control.data('allOptionIsSelected', allOptionIsSelected);
-}
-	$('#foundation').selectpicker().change(function(){toggleSelectAll($(this));}).trigger('change');
+//     if (control.data('allOptionIsSelected') != allOptionIsSelected) {
+//         // User clicked 'All' option
+//         if (allOptionIsSelected) {
+//             // Can't use .selectpicker('selectAll') because multiple "change" events will be triggered
+//             control.selectpicker('val', valuesOf(control.find('option')));
+//         } else {
+//             control.selectpicker('val', []);
+//         }
+//     } else {
+//         // User clicked other option
+//         if (allOptionIsSelected && control.val().length != control.find('option').length) {
+//             // All options were selected, user deselected one option
+//             // => unselect 'All' option
+//             control.selectpicker('val', valuesOf(control.find('option:selected[value!=All]')));
+//             allOptionIsSelected = false;
+//         } else if (!allOptionIsSelected && control.val().length == control.find('option').length - 1) {
+//             // Not all options were selected, user selected all options except 'All' option
+//             // => select 'All' option too
+//             control.selectpicker('val', valuesOf(control.find('option')));
+//             allOptionIsSelected = true;
+//         }
+//     }
+//     control.data('allOptionIsSelected', allOptionIsSelected);
+// }
+	// $('#foundation').selectpicker().change(function(){toggleSelectAll($(this));}).trigger('change');
 
-
+	var scuclasses = document.getElementById("foundation");
 	var dropdown = document.getElementById("university");
-	if (dropdown){
+	var duplicate = document.getElementById("uniduplicate");
+	if(scuclasses){
+		var foundation = Parse.Object.extend("Foundation");
+		var query = new Parse.Query(foundation);
+		query.find({
+			success: function(results) {
+				for (var i = 0; i < results.length; i++) {
+					var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option";
+					$('#foundation').append(object);
+				}
+				$('#foundation').selectpicker('refresh');
+			},
+			error: function(error) {
+				alert("Error: " + error.code + " " + error.message);
+			}
+		});
+	}
+	if (dropdown && duplicate){
 		var university = Parse.Object.extend("University");
 		var query =  new Parse.Query(university);
 		query.find({
@@ -50,9 +67,11 @@ function toggleSelectAll(control) {
 				for (var i = 0; i < results.length; i++) {
 					var object = "<option value='" + results[i].id +"'>" + results[i].get('name') + "</option>";
 					$('#university').append(object);
+					$('#uniduplicate').append(object);
 				}
 				
 				$('#university').selectpicker('refresh');
+				$('#uniduplicate').selectpicker('refresh');
 
 			},
 			error: function(error) {
@@ -61,7 +80,7 @@ function toggleSelectAll(control) {
 		});
 	}
 
-	$('#university').on('change', function(){
+	$('#uniduplicate').on('change', function(){
 		var classlist = document.getElementById("courses");
 		if (classlist){
 			
