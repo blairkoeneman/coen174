@@ -10,7 +10,7 @@ $(document).ready(function(e) {
 		var password = $('#password').val();
 		Parse.User.logIn(username, password, {
 			success: function(user) {
-				window.location.href = "index.html";
+				window.location.href = "index_advisor.html";
 			},
 			error: function(user, error) {
 				//failed logIn
