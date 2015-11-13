@@ -42,7 +42,9 @@
   	.btn-default{
   		top: 10px;
   	}
-
+    h5{
+      font-size: 17px;
+    }
   	
   	</style>
   	
@@ -86,22 +88,24 @@
   </br>
       <div class="row" style="text-align:center;">
         <!-- SELECT A SCU COURSE -->
-		    <div class="col-md-4">Choose a SCU Foundation Course
-		      <br>
+		    <div class="col-md-4">
+           <h5>Choose a SCU Foundation Course</h5>
           <select class="selectpicker" id="foundation" name="foundationclasses" title='Choose SCU Classes...'>
             <option value="All">All Classes</option>
             </select>   
 		    </div>
         <!-- SELECT A UNIVERSITY -->
-        <div class="col-md-4">Choose your University
-          </br>
+        <div class="col-md-4">
+            <h5>Choose a University</h5>
           <select class="selectpicker" id="university" name="universityselect" title='Choose your University...'>
+            <option value="None">No University</option>
           </select>
         </div>
         <!-- SEARCH -->
         <div class="col-md-4"> 
           </br>
-          <button type="button" class="btn btn-success" id="search" style="background-color: #93191B; border-color: #93191B;">Search</button>
+        </br>
+          <button type="button" class="btn btn-success" id="coursesearch" style="background-color: #93191B; border-color: #93191B;">Search</button>
         </div>
   </div>
   <!--END CHOOSE SCU COURSE-->
@@ -116,22 +120,23 @@
     <!-- SEARCH BY UNIVERSITY COURSE -->
   <div class="row" style="text-align:center;">
 		<!--CHOOSE UNIVERSITY COURSE-->
-		<div class="col-md-4">Choose your University
-			</br>
+		<div class="col-md-4">
+       <h5>Choose a University</h5>
       <select class="selectpicker" id="uniduplicate" name="universityselect" title='Choose your University...'> 
       </select>
 			</br>
     </div>
     <!-- CHOOSE EXTERNAL COURSE -->
-    <div class="col-md-4">Choose your Class
-      </br>
+    <div class="col-md-4">
+      <h5>Choose a Course</h5>
       <select class="selectpicker" id="courses" name="courseselect"  title='Choose your class...'>
       </select>
 		</div>
     <!-- SEARCH -->
     <div class="col-md-4">
       </br>
-      <button type="button" class="btn btn-success" id="search" style="background-color: #93191B; border-color: #93191B;">Search</button>
+    </br>
+      <button type="button" class="btn btn-success" id="universitysearch" style="background-color: #93191B; border-color: #93191B;">Search</button>
     </div>
   </div>
 		<!--END SEARCH BY UNIVERSITY COURSE-->

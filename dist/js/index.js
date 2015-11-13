@@ -89,7 +89,7 @@ $(document).ready(function(e) {
 
 			var University = Parse.Object.extend("University");
 			var uniCourse = new University();
-			uniCourse.id = $('#university :selected').val();
+			uniCourse.id = $('#uniduplicate :selected').val();
 			var query = new Parse.Query(Courses);
 
 			query.equalTo("university", uniCourse);
@@ -112,12 +112,14 @@ $(document).ready(function(e) {
 		}
 	});
 
-	$('#search').click(function(){
+	$('#coursesearch').click(function(){
 		$('#table-catalog tbody').remove();
 		//String to hold table entries
 		var myCourses='';
 		//holds the select menu value
 		var selected = $('#foundation :selected').val();
+		var coursename = $('#foundation :selected').text();
+		var universityname = $('#university :selected').text();
 		var Courses = Parse.Object.extend("Courses");
 
 		//Need to make universitySelect a Parse Object of "University"
@@ -125,51 +127,11 @@ $(document).ready(function(e) {
 		var University = Parse.Object.extend("University");
 		var universitySelect = new University();
 		universitySelect.id = $('#university :selected').val();
-		if( selected == 'All' || (selected == undefined && universitySelect != undefined)){
-			// var Foundation = Parse.Object.extend("Foundation");
-
-			// var query = new Parse.Query(Foundation);
-			// var foundationList = new Array();
-
-			// query.find({
-			// 	success: function(results) {
-			// 		alert("Successfully retrieved " + results.length + " foundation courses.");
-
-			// 		for( var i = 0; i<results.length; i++) {
-			// 			var foundationList = results[i].id;
-			// 		}
-			// 	},
-			// 	error: function(error) {
-			// 		alert("Error: " + error.code + " " + error.message);
-			// 	}
-			// });
-			// if(uniSelect == undefined){
-			// 	alert("You must select a University if you want to search for all classes");
-			// 	var query = new Parse.Query(Courses);
-			// 	query.find({
-			// 		success: function(results) {
-			// 			alert("in find");
-			// 			alert("Successfully retrieved " + results.length + "equivalent courses.");
-			// 			for(var i = 0; i < results.length; i++) {
-			// 				var object = results[i];
-			// 				var equivalence = request.object.get("equivalency").course;
-
-			// 				myCourses+='<tr><td>' + equivalence + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
-			// 			}
-			// 			(function($) {
-			// 				$('#table-catalog').append(myCourses);
-			// 			})(jQuery);
-			// 		},
-			// 		error: function(error) {
-			// 			alert("Error: " + error.code + " " + error.message);
-			// 		}
-			// 	});
-			// }
-
+		alert(universitySelect.id);
+		if( selected == 'All' && universitySelect.id == 'None'){
 			var query = new Parse.Query(Courses);
-			query.equalTo("university", universitySelect);
-			query.equalTo("courseEquivalent", selected);
-
+			// query.equalTo("university", universitySelect);
+			// query.equalTo("courseEquivalent", selected);
 			query.find({
 				success: function(results) {
 					alert("Successfully retrieved " + results.length + "equivalent courses.");
@@ -186,11 +148,33 @@ $(document).ready(function(e) {
 				}
 			});
 
-		}else{
+		}else if (selected != 'All' && (universitySelect.id == 'None' || universitySelect == null)){
+			alert(universitySelect);
+			var query = new Parse.Query(Courses);
+			query.equalTo("courseEquivalent", coursename);
+			query.find({
+				success: function(results) {
+					for(var i = 0; i < results.length; i++) {
+						alert(results[i]);
+						var object = results[i];
+						myCourses += '<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
+						}
+						(function($) {
+						$('#table-catalog').append(myCourses);
+					})(jQuery);
+
+					},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+					}
+
+				});
+		}
+		else{
 			
 				var query = new Parse.Query(Courses);
-				query.equalTo("courseEquivalent",selected);
-				query.equalTo("university", universitySelect);
+				query.equalTo("courseEquivalent",coursename);
+				query.equalTo("universityName", universityname);
 
 				query.find({
 					success: function(results) {
