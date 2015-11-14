@@ -134,7 +134,7 @@ $(document).ready(function(e) {
 			// query.equalTo("courseEquivalent", selected);
 			query.find({
 				success: function(results) {
-					alert("Successfully retrieved " + results.length + "equivalent courses.");
+					alert("Successfully retrieved " + results.length + " equivalent courses.");
 					for(var i = 0; i < results.length; i++) {
 						var object = results[i];
 						myCourses+='<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
@@ -168,7 +168,6 @@ $(document).ready(function(e) {
 
 				});
 		}else if (selected == 'All' && universitySelect.id != 'None'){
-			alert(universitySelect);
 			var query = new Parse.Query(Courses);
 			query.equalTo("universityName", universityname);
 			query.find({
