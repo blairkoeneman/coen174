@@ -24,8 +24,8 @@ $(document).ready(function(e) {
 		});
 	}
 	
-	var dropdown = document.getElementById("university");
-	if (dropdown){
+	var unidrop = document.getElementById("university");
+	if (unidrop){
 		var unis = Parse.Object.extend("University");
 		var query =  new Parse.Query(unis);
 		query.find({
@@ -48,7 +48,10 @@ $(document).ready(function(e) {
 function addCourse() {
 
 	//variables
+	var courses = [];
 	var foundationCourse = $('#foundation :selected').text();
+
+
 
 	var Foundation = Parse.Object.extend("Foundation");
 	var foundation = new Foundation();
@@ -63,40 +66,40 @@ function addCourse() {
 	var courseNumber = $('#course_number').val();
 	
 	var notes = $('#notes').val();
-	
-	// var foundationCourse = $('#foundation :selected').val();
-	//var universityName = $('#university :selected').val();
-	// var courseNumber = $('#course_number').val();
-	// var notes = $('#notes').val();
-	
-	//gather info from other
-	if(universityName == "Other") {
-		alert("other selected");
-		var universityName = $('#other_text').val();
 
-		var University = Parse.Object.extend("University");
-		var university = new University();
-		university.set("name", universityName);
-		university.save(null, {
-			success: function(university) {
-				alert('New University added: ' + universityName);
-				uni.id = university;
-				alert(uni);
-			},
-			error: function(university, error) {
-				alert('Error');
-			}
-		});
-		// var findQuery = new Parse.Query("University");
-		// findQuery.equalTo("name", universityName);
-		// findQuery.find({
-		// 	success: function (results) {
-		// 		uni.id = results.id;
-		// 	}
-		// })
-		// uni.id = university.id;
-		// alert(uni);
-	}
+	// var flag = false; 
+
+	// var Course = Parse.Object.extend("Courses");
+	// var query = new Parse.Query(Course);
+	// query.find({
+	// 	success: function(results) {
+	// 		for(var i = 0; i < results.length; i++) {
+	// 			var object = results[i].get("course");
+	// 			courses.push(object);
+	// 		}
+	// 	},
+	// 	error: function(error) {
+	// 		alert("Error: " + error.code + " " + error.message);
+	// 	}
+	// });
+
+	// for(var i = 0; i < courses.length; i++){
+	// 	alert(courses[i]);
+	// 	if (courses[i] == courseNumber){
+	// 		flag = true;
+	// 	}
+	// 	if(flag){
+	// 		alert("Course is already in the database");
+	// 		break;
+	// 	}
+	// }
+
+	// if(flag == false){
+	// 	alert("")
+	// }
+
+	
+	
 
 	var Courses = Parse.Object.extend("Courses");
 	var courses = new Courses();
