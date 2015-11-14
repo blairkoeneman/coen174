@@ -66,8 +66,6 @@ $(document).ready(function(e) {
 
 			query.find({
 				success: function(results) {
-					alert("Successfully retrieved " + results.length + " courses.");
-
 					for( var i = 0; i <results.length; i++) {
 						var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option>";
 						$('#courses').append(object);
@@ -110,32 +108,26 @@ function deleteCourse() {
 	var Courses = Parse.Object.extend("Courses");
 	var courses = new Courses();
 	
-	
-///	
+	//delete equivalency
 	var uniID = $('#university :selected').text();
 	var foundationID = $('#foundation :selected').text();
 	var classID = $('#courses :selected').text();
-	
-	alert(uniID + " " + foundationID + " " + classID);
 
-		var Courses = Parse.Object.extend("Courses");
+	var Courses = Parse.Object.extend("Courses");
 
-		var query = new Parse.Query(Courses);
-		query.equalTo("universityName", uniID);
-		query.equalTo("course", classID);
-		query.equalTo("courseEquivalent", foundationID);
-		query.find({
-				success: function(results) {
-					alert("Successfully retrieved " + results.length + " equivalent courses." + results[0]);
-					results[0].destroy({});
-					alert("success");
-				},
-				error: function(error) {
-					alert("Error: " + error.code + " " + error.message);
-				}
-		});
-
-
+	var query = new Parse.Query(Courses);
+	query.equalTo("universityName", uniID);
+	query.equalTo("course", classID);
+	query.equalTo("courseEquivalent", foundationID);
+	query.find({
+			success: function(results) {
+				results[0].destroy({});
+				alert("Successfully deleted Equivalency.");
+			},
+			error: function(error) {
+				alert("Error: " + error.code + " " + error.message);
+			}
+	});
 }
 
 function deleteUniversity() {
@@ -164,25 +156,24 @@ function deleteUniversity() {
 	});
 	
 	//delete from Courses class
+	var uniID = $('#universitydrop :selected').text();
+
 	var Courses = Parse.Object.extend("Courses");
-	var courses = new Courses();
-	
+
 	var query = new Parse.Query(Courses);
-	query.equalTo("university", universityName);
-	query.get(universityName, {
-  		success: function(myObj) {
-    		// The object was retrieved successfully.
-    		myObj.destroy({});
-  		},
-  		error: function(object, error) {
-    		// The object was not retrieved successfully.
-    		// error is a Parse.Error with an error code and description.
-  		}
+	query.equalTo("universityName", uniID);
+	query.find({
+			success: function(results) {
+				Parse.Object.destroyAll(results);
+				alert("Successfully deleted University.");
+			},
+			error: function(error) {
+				alert("Error: " + error.code + " " + error.message);
+			}
 	});
 
-	//needs to delete all instances in Courses clas
-
 }
+
 
 function deleteFoundation() {
 
@@ -207,28 +198,21 @@ function deleteFoundation() {
   		}
 	});
 	
-	//needs to delete all instances in Courses class
+	//delete from Courses class
+	var foundationID = $('#foundationdrop :selected').text();
+
+	var Courses = Parse.Object.extend("Courses");
+
+	var query = new Parse.Query(Courses);
+	query.equalTo("courseEquivalent", foundationID);
+	query.find({
+			success: function(results) {
+				Parse.Object.destroyAll(results);
+				alert("Successfully deleted Foundation Course.");
+			},
+			error: function(error) {
+				alert("Error: " + error.code + " " + error.message);
+			}
+	});
 	
 }
-
-
-//	foundationCourse.destroy({
-//		success: function(foundationCourse) {
-//			alert('Foundation Course deleted: ' + foundationCourse);
-//		},
-//		error: function(foundation, error) {
-//			alert('Error');
-//		}
-//	});
-
-
-// //////
-// myObject.destroy({
-//   success: function(myObject) {
-//     // The object was deleted from the Parse Cloud.
-//   },
-//   error: function(myObject, error) {
-//     // The delete failed.
-//     // error is a Parse.Error with an error code and message.
-//   }
-// });
