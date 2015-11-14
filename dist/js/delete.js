@@ -5,7 +5,8 @@ $(document).ready(function(e) {
 	});
 
 	var dropdown = document.getElementById("foundation");
-	if (dropdown){
+	var foundationlist = document.getElementById("foundationdrop");
+	if (dropdown && foundationlist){
 		var foundations = Parse.Object.extend("Foundation");
 		var query =  new Parse.Query(foundations);
 		query.find({
@@ -13,11 +14,11 @@ $(document).ready(function(e) {
 				for (var i = 0; i < results.length; i++) {
 					var object = "<option value='" + results[i].id +"'>" + results[i].get("course") + "</option>";
 					$('#foundation').append(object);
-					$('#foundation2').append(object);
+					$('#foundationdrop').append(object);
 				}
 				
 				$('#foundation').selectpicker('refresh');
-				$('#foundation2').selectpicker('refresh');
+				$('#foundationdrop').selectpicker('refresh');
 
 			},
 			error: function(error) {
@@ -26,8 +27,9 @@ $(document).ready(function(e) {
 		});
 	}
 	
-	var dropdown = document.getElementById("university");
-	if (dropdown){
+	var universitydrop = document.getElementById("university");
+	var universitydroplist = document.getElementById("universitydrop");
+	if (universitydrop && universitydroplist){
 		var unis = Parse.Object.extend("University");
 		var query =  new Parse.Query(unis);
 		query.find({
@@ -35,9 +37,11 @@ $(document).ready(function(e) {
 				for (var i = 0; i < results.length; i++) {
 					var object = "<option value='" + results[i].id +"'>" + results[i].get("name") + "</option>";
 					$('#university').append(object);
+					$('#universitydrop').append(object);
 				}
 				
 				$('#university').selectpicker('refresh');
+				$('#universitydrop').selectpicker('refresh');
 
 			},
 			error: function(error) {
@@ -169,13 +173,13 @@ function deleteFoundation() {
 	});
 }
 
-//////
-myObject.destroy({
-  success: function(myObject) {
-    // The object was deleted from the Parse Cloud.
-  },
-  error: function(myObject, error) {
-    // The delete failed.
-    // error is a Parse.Error with an error code and message.
-  }
-});
+// //////
+// myObject.destroy({
+//   success: function(myObject) {
+//     // The object was deleted from the Parse Cloud.
+//   },
+//   error: function(myObject, error) {
+//     // The delete failed.
+//     // error is a Parse.Error with an error code and message.
+//   }
+// });

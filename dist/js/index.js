@@ -65,6 +65,7 @@ $(document).ready(function(e) {
 				alert("Successfully retrieved " + results.length + " universities.");
 
 				for (var i = 0; i < results.length; i++) {
+
 					var object = "<option value='" + results[i].id +"'>" + results[i].get('name') + "</option>";
 					$('#university').append(object);
 					$('#uniduplicate').append(object);
@@ -127,7 +128,6 @@ $(document).ready(function(e) {
 		var University = Parse.Object.extend("University");
 		var universitySelect = new University();
 		universitySelect.id = $('#university :selected').val();
-		alert(universitySelect.id);
 		if( selected == 'All' && universitySelect.id == 'None'){
 			var query = new Parse.Query(Courses);
 			// query.equalTo("university", universitySelect);
@@ -148,14 +148,12 @@ $(document).ready(function(e) {
 				}
 			});
 
-		}else if (selected != 'All' && (universitySelect.id == 'None' || universitySelect == null)){
-			alert(universitySelect);
+		}else if (selected != 'All' && universitySelect.id == 'None'){
 			var query = new Parse.Query(Courses);
 			query.equalTo("courseEquivalent", coursename);
 			query.find({
 				success: function(results) {
 					for(var i = 0; i < results.length; i++) {
-						alert(results[i]);
 						var object = results[i];
 						myCourses += '<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
 						}
@@ -169,8 +167,27 @@ $(document).ready(function(e) {
 					}
 
 				});
-		}
-		else{
+		}else if (selected == 'All' && universitySelect.id != 'None'){
+			alert(universitySelect);
+			var query = new Parse.Query(Courses);
+			query.equalTo("universityName", universityname);
+			query.find({
+				success: function(results) {
+					for(var i = 0; i < results.length; i++) {
+						var object = results[i];
+						myCourses += '<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
+						}
+						(function($) {
+						$('#table-catalog').append(myCourses);
+					})(jQuery);
+
+					},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+					}
+
+				});
+		}else{
 			
 				var query = new Parse.Query(Courses);
 				query.equalTo("courseEquivalent",coursename);
@@ -179,7 +196,6 @@ $(document).ready(function(e) {
 				query.find({
 					success: function(results) {
 						for(var i = 0; i < results.length; i++) {
-							alert(results[i]);
 							var object = results[i];
 							myCourses += '<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
 						}
@@ -196,5 +212,47 @@ $(document).ready(function(e) {
 			}
 
 		
+	});
+
+	$('#universitysearch').click(function(){
+		$('#table-catalog tbody').remove();
+		//String to hold table entries
+		var myCourses='';
+		//holds the select menu value
+		var selected = $('#uniduplicate :selected').val();
+		var cselected = $('#courses :selected').val();
+		var coursename = $('#courses :selected').text();
+		var universityname = $('#uniduplicate :selected').text();
+		var Courses = Parse.Object.extend("Courses");
+
+		//Need to make universitySelect a Parse Object of "University"
+
+		// var University = Parse.Object.extend("University");
+		// var universitySelect = new University();
+		// universitySelect.id = $('#university :selected').val();
+		// alert(universitySelect.id);
+		if(coursename != 'Choose your class...' && universityname != 'Choose your University...'){
+			var query = new Parse.Query(Courses);
+			query.equalTo("universityName", universityname);
+			query.equalTo("course", coursename);
+			query.find({
+				success: function(results) {
+					alert("Successfully retrieved " + results.length + " equivalent courses.");
+					for(var i = 0; i < results.length; i++) {
+						var object = results[i];
+						myCourses+='<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
+					}
+					(function($) {
+						$('#table-catalog').append(myCourses);
+					})(jQuery);
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+		}else{
+			alert("You must select both a University and it's course");
+
+		}	
 	});
 });
