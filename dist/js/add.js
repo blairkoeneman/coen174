@@ -24,8 +24,8 @@ $(document).ready(function(e) {
 		});
 	}
 	
-	var dropdown = document.getElementById("university");
-	if (dropdown){
+	var unidrop = document.getElementById("university");
+	if (unidrop){
 		var unis = Parse.Object.extend("University");
 		var query =  new Parse.Query(unis);
 		query.find({
@@ -48,7 +48,10 @@ $(document).ready(function(e) {
 function addCourse() {
 
 	//variables
+	var courses = [];
 	var foundationCourse = $('#foundation :selected').text();
+
+
 
 	var Foundation = Parse.Object.extend("Foundation");
 	var foundation = new Foundation();
@@ -63,40 +66,17 @@ function addCourse() {
 	var courseNumber = $('#course_number').val();
 	
 	var notes = $('#notes').val();
-	
-	// var foundationCourse = $('#foundation :selected').val();
-	//var universityName = $('#university :selected').val();
-	// var courseNumber = $('#course_number').val();
-	// var notes = $('#notes').val();
-	
-	//gather info from other
-	if(universityName == "Other") {
-		alert("other selected");
-		var universityName = $('#other_text').val();
 
-		var University = Parse.Object.extend("University");
-		var university = new University();
-		university.set("name", universityName);
-		university.save(null, {
-			success: function(university) {
-				alert('New University added: ' + universityName);
-				uni.id = university;
-				alert(uni);
-			},
-			error: function(university, error) {
-				alert('Error');
-			}
-		});
-		// var findQuery = new Parse.Query("University");
-		// findQuery.equalTo("name", universityName);
-		// findQuery.find({
-		// 	success: function (results) {
-		// 		uni.id = results.id;
-		// 	}
-		// })
-		// uni.id = university.id;
-		// alert(uni);
-	}
+	//LOOK AT THIS BLAIR
+	//Add regex and stuff from login and repeat 
+	//for the other add functionalities.
+	//Thank you.
+	//
+	//
+	//
+	if(courseNumber =='' || foundationCourse == '' || universityName == ''){
+		alert("You must enter in fields");
+	}else {
 
 	var Courses = Parse.Object.extend("Courses");
 	var courses = new Courses();
@@ -116,9 +96,10 @@ function addCourse() {
   		error: function(courses, error) {
     		// Execute any logic that should take place if the save fails.
     		// error is a Parse.Error with an error code and message.
-    		alert('Failed to create new object, with error code: ' + error.message);
+    		alert('Failed to create new Course, with error code: ' + error.message);
   		}
 	});
+	}
 
 }
 
@@ -137,10 +118,9 @@ function addUniversity() {
 		success: function(university) {
 			alert('New University added: ' + universityName);
 			uni.id = university;
-			alert(uni);
 		},
 		error: function(university, error) {
-			alert('Error');
+			alert('Failed to create new University, with error code: ' + error.message);
 		}
 	});
 }
@@ -160,10 +140,9 @@ function addFoundation() {
 		success: function(foundation) {
 			alert('New Foundation Course added: ' + foundationCourse);
 			foundation.id = foundation;
-			alert(foundation);
 		},
 		error: function(foundation, error) {
-			alert('Error');
+			alert('Failed to create new Foundation Course, with error code: ' + error.message);
 		}
 	});
 }
