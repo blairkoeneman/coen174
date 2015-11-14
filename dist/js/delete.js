@@ -113,17 +113,7 @@ function deleteCourse() {
     courses.set("courseEquivalent", foundationCourse);
     courses.set("equivalency", foundation);
 	
-		courses.destroy({
-  		success: function(courses) {
-    		// Execute any logic that should take place after the object is saved.
-    		alert('New object created with objectId: ' + courses.id);
-  		},
-  		error: function(courses, error) {
-    		// Execute any logic that should take place if the save fails.
-    		// error is a Parse.Error with an error code and message.
-    		alert('Failed to create new object, with error code: ' + error.message);
-  		}
-	});
+
 
 }
 
@@ -131,47 +121,63 @@ function deleteUniversity() {
 
 	var Uni = Parse.Object.extend("University");
 	var uni = new Uni();
-	uni.id = $('#newUniversity').val();
+	uni.id = $('#universitydrop').val();
 	
-	var universityName = $('#newUniversity').val();
+	var universityName = $('#universitydrop :selected').val();
 
 	var University = Parse.Object.extend("University");
 	var university = new University();
-	university.set("name", universityName);
-	university.save(null, {
-		success: function(university) {
-			alert('New University added: ' + universityName);
-			uni.id = university;
-			alert(uni);
-		},
-		error: function(university, error) {
-			alert('Error');
-		}
+	
+	var query = new Parse.Query(University);
+	query.get(universityName, {
+  		success: function(myObj) {
+    		// The object was retrieved successfully.
+    		myObj.destroy({});
+  		},
+  		error: function(object, error) {
+    		// The object was not retrieved successfully.
+    		// error is a Parse.Error with an error code and description.
+  		}
 	});
+
 }
 
 function deleteFoundation() {
 
 	var Foundation = Parse.Object.extend("Foundation");
 	var foundation = new Foundation();
-	foundation.id = $('#newFoundation').val();
+	foundation.id = $('#foundationdrop').val();
 	
-	var foundationCourse = $('#newFoundation').val();
+	var foundationCourse = $('#foundationdrop :selected').val();
 
 	var Foundation = Parse.Object.extend("Foundation");
 	var foundation = new Foundation();
-	foundation.set("course", foundationCourse);
-	foundation.destroy(foundation, {
-		success: function(foundation) {
-			alert('New Foundation Course added: ' + foundationCourse);
-			foundation.id = foundation;
-			alert(foundation);
-		},
-		error: function(foundation, error) {
-			alert('Error');
-		}
+
+///new part
+
+	var query = new Parse.Query(Foundation);
+	query.get(foundationCourse, {
+  		success: function(myObj) {
+    		// The object was retrieved successfully.
+    		myObj.destroy({});
+  		},
+  		error: function(object, error) {
+    		// The object was not retrieved successfully.
+    		// error is a Parse.Error with an error code and description.
+  		}
 	});
 }
+
+
+//	foundationCourse.destroy({
+//		success: function(foundationCourse) {
+//			alert('Foundation Course deleted: ' + foundationCourse);
+//		},
+//		error: function(foundation, error) {
+//			alert('Error');
+//		}
+//	});
+
 
 // //////
 // myObject.destroy({
