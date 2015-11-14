@@ -88,6 +88,9 @@ $(document).ready(function(e) {
 function deleteCourse() {
 
 	//variables
+	
+	var myCourses='';
+	
 	var foundationCourse = $('#foundation :selected').text();
 
 	var Foundation = Parse.Object.extend("Foundation");
@@ -106,13 +109,31 @@ function deleteCourse() {
 
 	var Courses = Parse.Object.extend("Courses");
 	var courses = new Courses();
-
-	courses.set("course", courseNumber);
-	courses.set("universityName", universityName);
-	courses.set("university", uni);
-    courses.set("courseEquivalent", foundationCourse);
-    courses.set("equivalency", foundation);
 	
+	
+///	
+	var uniID = $('#university :selected').text();
+	var foundationID = $('#foundation :selected').text();
+	var classID = $('#courses :selected').text();
+	
+	alert(uniID + " " + foundationID + " " + classID);
+
+		var Courses = Parse.Object.extend("Courses");
+
+		var query = new Parse.Query(Courses);
+		query.equalTo("universityName", uniID);
+		query.equalTo("course", classID);
+		query.equalTo("courseEquivalent", foundationID);
+		query.find({
+				success: function(results) {
+					alert("Successfully retrieved " + results.length + " equivalent courses." + results[0]);
+					results[0].destroy({});
+					alert("success");
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+		});
 
 
 }
@@ -124,7 +145,9 @@ function deleteUniversity() {
 	uni.id = $('#universitydrop').val();
 	
 	var universityName = $('#universitydrop :selected').val();
+	//this picks up the ID
 
+	//delete from University class
 	var University = Parse.Object.extend("University");
 	var university = new University();
 	
@@ -139,6 +162,25 @@ function deleteUniversity() {
     		// error is a Parse.Error with an error code and description.
   		}
 	});
+	
+	//delete from Courses class
+	var Courses = Parse.Object.extend("Courses");
+	var courses = new Courses();
+	
+	var query = new Parse.Query(Courses);
+	query.equalTo("university", universityName);
+	query.get(universityName, {
+  		success: function(myObj) {
+    		// The object was retrieved successfully.
+    		myObj.destroy({});
+  		},
+  		error: function(object, error) {
+    		// The object was not retrieved successfully.
+    		// error is a Parse.Error with an error code and description.
+  		}
+	});
+
+	//needs to delete all instances in Courses clas
 
 }
 
@@ -153,8 +195,6 @@ function deleteFoundation() {
 	var Foundation = Parse.Object.extend("Foundation");
 	var foundation = new Foundation();
 
-///new part
-
 	var query = new Parse.Query(Foundation);
 	query.get(foundationCourse, {
   		success: function(myObj) {
@@ -166,6 +206,9 @@ function deleteFoundation() {
     		// error is a Parse.Error with an error code and description.
   		}
 	});
+	
+	//needs to delete all instances in Courses class
+	
 }
 
 
