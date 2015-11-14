@@ -67,39 +67,16 @@ function addCourse() {
 	
 	var notes = $('#notes').val();
 
-	// var flag = false; 
-
-	// var Course = Parse.Object.extend("Courses");
-	// var query = new Parse.Query(Course);
-	// query.find({
-	// 	success: function(results) {
-	// 		for(var i = 0; i < results.length; i++) {
-	// 			var object = results[i].get("course");
-	// 			courses.push(object);
-	// 		}
-	// 	},
-	// 	error: function(error) {
-	// 		alert("Error: " + error.code + " " + error.message);
-	// 	}
-	// });
-
-	// for(var i = 0; i < courses.length; i++){
-	// 	alert(courses[i]);
-	// 	if (courses[i] == courseNumber){
-	// 		flag = true;
-	// 	}
-	// 	if(flag){
-	// 		alert("Course is already in the database");
-	// 		break;
-	// 	}
-	// }
-
-	// if(flag == false){
-	// 	alert("")
-	// }
-
-	
-	
+	//LOOK AT THIS BLAIR
+	//Add regex and stuff from login and repeat 
+	//for the other add functionalities.
+	//Thank you.
+	//
+	//
+	//
+	if(courseNumber =='' || foundationCourse == '' || universityName == ''){
+		alert("You must enter in fields");
+	}else {
 
 	var Courses = Parse.Object.extend("Courses");
 	var courses = new Courses();
@@ -119,9 +96,10 @@ function addCourse() {
   		error: function(courses, error) {
     		// Execute any logic that should take place if the save fails.
     		// error is a Parse.Error with an error code and message.
-    		alert('Failed to create new object, with error code: ' + error.message);
+    		alert('Failed to create new Course, with error code: ' + error.message);
   		}
 	});
+	}
 
 }
 
@@ -140,10 +118,9 @@ function addUniversity() {
 		success: function(university) {
 			alert('New University added: ' + universityName);
 			uni.id = university;
-			alert(uni);
 		},
 		error: function(university, error) {
-			alert('Error');
+			alert('Failed to create new University, with error code: ' + error.message);
 		}
 	});
 }
@@ -163,10 +140,9 @@ function addFoundation() {
 		success: function(foundation) {
 			alert('New Foundation Course added: ' + foundationCourse);
 			foundation.id = foundation;
-			alert(foundation);
 		},
 		error: function(foundation, error) {
-			alert('Error');
+			alert('Failed to create new Foundation Course, with error code: ' + error.message);
 		}
 	});
 }
