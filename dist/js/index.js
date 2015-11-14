@@ -1,7 +1,8 @@
 $(document).ready(function(e) {
 	Parse.initialize("xoKIhEIxEK5SxBRVMcucXhjd2wzFwMKGwSUoynot", "fXKCq8wQgTcOpoBkRhzf2DUZDofbdFp9bM8IL1Eo");
+	$('[data-toggle="tooltip"]').tooltip();
 	$('.selectpicker').selectpicker({
-		style: 'btn-grey',
+		style: 'btn-white',
 	});
 
 // function toggleSelectAll(control) {
@@ -37,6 +38,10 @@ $(document).ready(function(e) {
 //     control.data('allOptionIsSelected', allOptionIsSelected);
 // }
 	// $('#foundation').selectpicker().change(function(){toggleSelectAll($(this));}).trigger('change');
+
+
+
+
 
 	var scuclasses = document.getElementById("foundation");
 	var dropdown = document.getElementById("university");
