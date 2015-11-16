@@ -3,149 +3,170 @@ $(document).ready(function(e) {
 	$('.selectpicker').selectpicker({
 		style: 'btn-white',
 	});
+	var currentUser = Parse.User.current();
 
-	var dropdown = document.getElementById("foundation");
-	if (dropdown){
-		var foundations = Parse.Object.extend("Foundation");
-		var query =  new Parse.Query(foundations);
-		query.find({
-			success: function(results) {
-				for (var i = 0; i < results.length; i++) {
-					var object = "<option value='" + results[i].id +"'>" + results[i].get("course") + "</option>";
-					$('#foundation').append(object);
+	if(currentUser) {
+		var dropdown = document.getElementById("foundation");
+		if (dropdown){
+			var foundations = Parse.Object.extend("Foundation");
+			var query =  new Parse.Query(foundations);
+			query.find({
+				success: function(results) {
+					for (var i = 0; i < results.length; i++) {
+						var object = "<option value='" + results[i].id +"'>" + results[i].get("course") + "</option>";
+						$('#foundation').append(object);
+					}
+					
+					$('#foundation').selectpicker('refresh');
+
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
 				}
-				
-				$('#foundation').selectpicker('refresh');
+			});
+		}
+		
+		var unidrop = document.getElementById("university");
+		if (unidrop){
+			var unis = Parse.Object.extend("University");
+			var query =  new Parse.Query(unis);
+			query.find({
+				success: function(results) {
+					for (var i = 0; i < results.length; i++) {
+						var object = "<option value='" + results[i].id +"'>" + results[i].get("name") + "</option>";
+						$('#university').append(object);
+					}
+					
+					$('#university').selectpicker('refresh');
 
-			},
-			error: function(error) {
-				alert("Error: " + error.code + " " + error.message);
-			}
-		});
-	}
-	
-	var unidrop = document.getElementById("university");
-	if (unidrop){
-		var unis = Parse.Object.extend("University");
-		var query =  new Parse.Query(unis);
-		query.find({
-			success: function(results) {
-				for (var i = 0; i < results.length; i++) {
-					var object = "<option value='" + results[i].id +"'>" + results[i].get("name") + "</option>";
-					$('#university').append(object);
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
 				}
-				
-				$('#university').selectpicker('refresh');
+			});
+		}
 
-			},
-			error: function(error) {
-				alert("Error: " + error.code + " " + error.message);
+		$('#logout').click(function(){
+			console.log("Performing Logout");
+
+			if(Parse.User.current()){
+				console.log("Sucessfully logged out");
+				Parse.User.logOut();
+
+				if(Parse.User.current())
+					console.log("Failed to logout");
 			}
+
+			window.location.href= "index_student.html";
 		});
+	}else{
+	alert("You must be logged in to view this page");
+		window.location.href="login.html";
 	}
 });
 
-function addCourse() {
+	function addCourse() {
 
-	//variables
-	var courses = [];
-	var foundationCourse = $('#foundation :selected').text();
+		//variables
+		var courses = [];
+		var foundationCourse = $('#foundation :selected').text();
 
 
 
-	var Foundation = Parse.Object.extend("Foundation");
-	var foundation = new Foundation();
-	foundation.id = $('#foundation :selected').val();
+		var Foundation = Parse.Object.extend("Foundation");
+		var foundation = new Foundation();
+		foundation.id = $('#foundation :selected').val();
 
-	var universityName = $('#university :selected').text();
+		var universityName = $('#university :selected').text();
 
-	var Uni = Parse.Object.extend("University");
-	var uni = new Uni();
-	uni.id = $('#university :selected').val();
+		var Uni = Parse.Object.extend("University");
+		var uni = new Uni();
+		uni.id = $('#university :selected').val();
 
-	var courseNumber = $('#course_number').val();
-	
-	var notes = $('#notes').val();
+		var courseNumber = $('#course_number').val();
+		
+		var notes = $('#notes').val();
 
-	//LOOK AT THIS BLAIR
-	//Add regex and stuff from login and repeat 
-	//for the other add functionalities.
-	//Thank you.
-	//
-	//
-	//
-	if(courseNumber =='' || foundationCourse == '' || universityName == ''){
-		alert("You must enter in fields");
-	}else {
+		//LOOK AT THIS BLAIR
+		//Add regex and stuff from login and repeat 
+		//for the other add functionalities.
+		//Thank you.
+		//
+		//
+		//
+		if(courseNumber =='' || foundationCourse == '' || universityName == ''){
+			alert("You must enter in fields");
+		}else {
 
-	var Courses = Parse.Object.extend("Courses");
-	var courses = new Courses();
+		var Courses = Parse.Object.extend("Courses");
+		var courses = new Courses();
 
-	courses.set("course", courseNumber);
-	courses.set("universityName", universityName);
-	courses.set("university", uni);
-    courses.set("courseEquivalent", foundationCourse);
-    courses.set("equivalency", foundation);
-	courses.set("notes", notes);
-	
-		courses.save(null, {
-  		success: function(courses) {
-    		// Execute any logic that should take place after the object is saved.
-    		alert('New object created with objectId: ' + courses.id);
-  		},
-  		error: function(courses, error) {
-    		// Execute any logic that should take place if the save fails.
-    		// error is a Parse.Error with an error code and message.
-    		alert('Failed to create new Course, with error code: ' + error.message);
-  		}
-	});
+		courses.set("course", courseNumber);
+		courses.set("universityName", universityName);
+		courses.set("university", uni);
+	    courses.set("courseEquivalent", foundationCourse);
+	    courses.set("equivalency", foundation);
+		courses.set("notes", notes);
+		
+			courses.save(null, {
+	  		success: function(courses) {
+	    		// Execute any logic that should take place after the object is saved.
+	    		alert('New object created with objectId: ' + courses.id);
+	  		},
+	  		error: function(courses, error) {
+	    		// Execute any logic that should take place if the save fails.
+	    		// error is a Parse.Error with an error code and message.
+	    		alert('Failed to create new Course, with error code: ' + error.message);
+	  		}
+		});
+		}
+
 	}
 
-}
+	function addUniversity() {
 
-function addUniversity() {
+		var Uni = Parse.Object.extend("University");
+		var uni = new Uni();
+		uni.id = $('#newUniversity').val();
+		
+		var universityName = $('#newUniversity').val();
 
-	var Uni = Parse.Object.extend("University");
-	var uni = new Uni();
-	uni.id = $('#newUniversity').val();
-	
-	var universityName = $('#newUniversity').val();
+		var University = Parse.Object.extend("University");
+		var university = new University();
+		university.set("name", universityName);
+		university.save(null, {
+			success: function(university) {
+				alert('New University added: ' + universityName);
+				uni.id = university;
+			},
+			error: function(university, error) {
+				alert('Failed to create new University, with error code: ' + error.message);
+			}
+		});
+	}
 
-	var University = Parse.Object.extend("University");
-	var university = new University();
-	university.set("name", universityName);
-	university.save(null, {
-		success: function(university) {
-			alert('New University added: ' + universityName);
-			uni.id = university;
-		},
-		error: function(university, error) {
-			alert('Failed to create new University, with error code: ' + error.message);
-		}
-	});
-}
+	function addFoundation() {
 
-function addFoundation() {
+		var Foundation = Parse.Object.extend("Foundation");
+		var foundation = new Foundation();
+		foundation.id = $('#newFoundation').val();
+		
+		var foundationCourse = $('#newFoundation').val();
 
-	var Foundation = Parse.Object.extend("Foundation");
-	var foundation = new Foundation();
-	foundation.id = $('#newFoundation').val();
-	
-	var foundationCourse = $('#newFoundation').val();
+		var Foundation = Parse.Object.extend("Foundation");
+		var foundation = new Foundation();
+		foundation.set("course", foundationCourse);
+		foundation.save(null, {
+			success: function(foundation) {
+				alert('New Foundation Course added: ' + foundationCourse);
+				foundation.id = foundation;
+			},
+			error: function(foundation, error) {
+				alert('Failed to create new Foundation Course, with error code: ' + error.message);
+			}
+		});
+	}
 
-	var Foundation = Parse.Object.extend("Foundation");
-	var foundation = new Foundation();
-	foundation.set("course", foundationCourse);
-	foundation.save(null, {
-		success: function(foundation) {
-			alert('New Foundation Course added: ' + foundationCourse);
-			foundation.id = foundation;
-		},
-		error: function(foundation, error) {
-			alert('Failed to create new Foundation Course, with error code: ' + error.message);
-		}
-	});
-}
 
 	
 

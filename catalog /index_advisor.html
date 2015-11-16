@@ -26,7 +26,7 @@
 
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.6.5.min.js"></script>
-    <script src="../dist/js/index.js" type="text/javascript" ></script>
+    <script src="../dist/js/index_advisor.js" type="text/javascript" ></script>
 
 
 
@@ -49,7 +49,7 @@
   	<body>
     
 	<!--NAV BAR-->    
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-inverse" style="background-color:#93191B;">
   	<div class="container-fluid">
     	<!-- Brand and toggle get grouped for better mobile display -->
     	<div class="navbar-header">
@@ -59,93 +59,90 @@
         		<span class="icon-bar"></span>
         		<span class="icon-bar"></span>
       		</button>
-      		<a class="navbar-brand" href="#">SCU Course Catalog</a>
+      		<a class="navbar-brand" href="#" style="color:#fff;">SCU Course Catalog</a>
     	</div>
     	<!-- Collect the nav links, forms, and other content for toggling -->
     	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       		<ul class="nav navbar-nav">
-        		<li class="active"><a href="index_advisor.html">Catalog <span class="sr-only">(current)</span></a></li>
-			<li><a href="add.html">Add to Catalog</a></li>
-			<li><a href="add.html">Delete from Catalog</a></li>
+        		<li class="active"><a href="index_advisor.html" style="background-color:#93191B;">Catalog <span class="sr-only">(current)</span></a></li>
+			<li><a href="add.html" style="color:#fff;">Add to Catalog</a></li>
+			<li><a href="delete.html" style="color:#fff;">Delete from Catalog</a></li>
       		</ul>
       		<ul class="nav navbar-nav navbar-right">
-        		<li><a href="index_student.html">Log Out</a></li>
+        		<li id="logout"><a style="color:#fff;">Log Out</a></li>
       		</ul>
     	</div><!-- /.navbar-collapse -->
   	</div><!-- /.container-fluid -->
 	</nav>
 	<!--END NAV BAR-->
 
-<div class="overall_container">
-    </br>
-    <h4 style="text-align:center;">Search by SCU Foundation courses to see approved courses from your University   -OR-  Search by your University's Courses to see courses equivalent to SCU Foundation Courses.</h4>
+  <div class="overall_container">
     </br>
     <!--SEARCH BY SCU COURSE-->
-    <h3 style="text-align:center; color:;">Search by SCU Foundation Course</h3>
-        <h4 style="text-align:center;">Use this search to filter SCU Equivalent Courses at your University</h4>
-    <br>
-  </br>
+<div id= "foundationSearch" class="indexBox">
       <div class="row" style="text-align:center;">
         <!-- SELECT A SCU COURSE -->
-        <div class="col-md-4">
-           <h5>Choose a SCU Foundation Course</h5>
-          <select class="selectpicker" id="foundation" name="foundationclasses" title='Choose SCU Classes...'>
+        <div class = "col-md-3">
+          <h4>Search by Foundation Course</h4>
+        </div>
+        
+        <div class="col-md-3">
+          <select class="selectpicker" id="foundation" name="foundationclasses" title='Choose SCU Course...'>
             <option value="All">All Classes</option>
             </select>   
         </div>
         <!-- SELECT A UNIVERSITY -->
-        <div class="col-md-4">
-            <h5>Choose a University</h5>
-          <select class="selectpicker" id="university" name="universityselect" title='Choose your University...'>
+        <div class="col-md-3">
+          <select class="selectpicker" id="university" name="universityselect" title='Choose External University...'>
             <option value="None">No University</option>
           </select>
         </div>
         <!-- SEARCH -->
-        <div class="col-md-4"> 
-          </br>
-        </br>
+        <div class="col-md-3"> 
           <button type="button" class="btn btn-success" id="coursesearch" style="background-color: #93191B; border-color: #93191B;">Search</button>
+          <img src="info.png" alt="More information" style="position: relative; left: 50px;" data-toggle="tooltip" data-placement="bottom" title="Search by an SCU Foundation course to see if an external university has equivalent courses.">
         </div>
   </div>
   <!--END CHOOSE SCU COURSE-->
-    </br>
-    </br>
+</div> <!--end foundationSearch-->
+  
   <h4 style="text-align:center;">- OR - </h4>
-    </br>
-  <h3 style="text-align:center;">Search by External University Course</h3>
-  <h4 style="text-align:center;">Use this search to filter all SCU Courses equivalent to your chosen University's Class</h4>
-    </br> 
+
+<div id= "courseSearch" class="indexBox">
 
     <!-- SEARCH BY UNIVERSITY COURSE -->
   <div class="row" style="text-align:center;">
     <!--CHOOSE UNIVERSITY COURSE-->
-    <div class="col-md-4">
-       <h5>Choose a University</h5>
+    <div class="col-md-3">
+      <h4>Search by External Course</h4>
+    </div>
+    
+    
+    <div class="col-md-3">
       <select class="selectpicker" id="uniduplicate" name="universityselect" title='Choose your University...'> 
       </select>
       </br>
     </div>
     <!-- CHOOSE EXTERNAL COURSE -->
-    <div class="col-md-4">
-      <h5>Choose a Course</h5>
+    <div class="col-md-3">
       <select class="selectpicker" id="courses" name="courseselect"  title='Choose your class...'>
       </select>
     </div>
     <!-- SEARCH -->
-    <div class="col-md-4">
-      </br>
-    </br>
+    <div class="col-md-3">
       <button type="button" class="btn btn-success" id="universitysearch" style="background-color: #93191B; border-color: #93191B;">Search</button>
+      <img src="info.png" alt="More information" style="position: relative; left: 50px;" data-toggle="tooltip" data-placement="bottom" title="Search by a course from an external university to see if it is equivalent to any SCU Foundation courses.">
     </div>
   </div>
+</div>
     <!--END SEARCH BY UNIVERSITY COURSE-->
 
     <!--TABLE-->
-    <table class="table table-striped" id="table-catalog" style="color: #93191B">
+    <table class="table table-striped" id="table-catalog">
       <thead>
-          <th>SCU Foundation Course</th>
-          <th>University Course</th> 
-          <th>Notes</th>
+          <th style="color: #93191B">SCU Foundation Course</th>
+          <th style="color: #93191B">University Course</th> 
+          <th style="color: #93191B">Notes</th>
       </thead>
       <tbody>
         
@@ -154,6 +151,4 @@
     <!--END TABLE-->
   </div>
   <!--END CONTAINER-->
-
-  </body>
 </html>
