@@ -22,12 +22,18 @@
 
 .btn-success:hover {
 	color: white;
+	background-color: maroon;
+}
+
+.btn-success:active {
+	color: white;
+	background-color: maroon;
 }
 
 .btn-white {
 	background-color: white;
-	border-color: #cbcbcb;
 	color: black;
+	box-shadow: 1px 1px 1px #cccccc;
 }
 
 .btn-white:hover{
@@ -49,3 +55,8 @@
 	padding: 25px 25px 25px 25px;
 	border-radius: 5px;
 }
+
+.navbar-inverse{	
+	background-color: maroon;
+}
+

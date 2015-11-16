@@ -110,6 +110,10 @@ function addUniversity() {
 	uni.id = $('#newUniversity').val();
 	
 	var universityName = $('#newUniversity').val();
+	if(universityName == ''){
+		alert("You must enter in fields");
+	}else {
+
 
 	var University = Parse.Object.extend("University");
 	var university = new University();
@@ -123,6 +127,7 @@ function addUniversity() {
 			alert('Failed to create new University, with error code: ' + error.message);
 		}
 	});
+	}
 }
 
 function addFoundation() {
@@ -132,6 +137,10 @@ function addFoundation() {
 	foundation.id = $('#newFoundation').val();
 	
 	var foundationCourse = $('#newFoundation').val();
+
+	if(foundationCourse == ''){
+		alert("You must enter in fields");
+	}else {
 
 	var Foundation = Parse.Object.extend("Foundation");
 	var foundation = new Foundation();
@@ -145,6 +154,7 @@ function addFoundation() {
 			alert('Failed to create new Foundation Course, with error code: ' + error.message);
 		}
 	});
+	}
 }
 
 	
