@@ -106,7 +106,7 @@ $(document).ready(function(e) {
 				courses.save(null, {
 		  		success: function(courses) {
 		    		// Execute any logic that should take place after the object is saved.
-		    		if(alert('New object created with objectId: ' + courses.id)){}
+		    		if(alert('New course added: ' + courses.get("course"))){}
 		    		else window.location.reload();
 		  		},
 		  		error: function(courses, error) {
