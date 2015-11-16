@@ -99,6 +99,7 @@ $(document).ready(function(e) {
 
 	}
 
+});
 
 	function deleteCourse() {
 
@@ -138,8 +139,10 @@ $(document).ready(function(e) {
 		query.equalTo("courseEquivalent", foundationID);
 		query.find({
 				success: function(results) {
-					results[0].destroy({});
-					alert("Successfully deleted Equivalency.");
+					//results[0].destroy({});
+					Parse.Object.destroyAll(results);
+					if(alert("Successfully deleted Equivalency.")){}
+					else window.location.reload();
 				},
 				error: function(error) {
 					alert("Error: " + error.code + " " + error.message);
@@ -182,7 +185,8 @@ $(document).ready(function(e) {
 		query.find({
 				success: function(results) {
 					Parse.Object.destroyAll(results);
-					alert("Successfully deleted University.");
+					if(alert("Successfully deleted University.")){}
+					else window.location.reload();
 				},
 				error: function(error) {
 					alert("Error: " + error.code + " " + error.message);
@@ -225,12 +229,11 @@ $(document).ready(function(e) {
 		query.find({
 				success: function(results) {
 					Parse.Object.destroyAll(results);
-					alert("Successfully deleted Foundation Course.");
+					if(alert("Successfully deleted Foundation Course.")){}
+					else window.location.reload();
 				},
 				error: function(error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 		});	
 	}
-
-});
