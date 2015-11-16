@@ -4,12 +4,13 @@ $(document).ready(function(e) {
 	$('#login').click(function(){
 		var username = $('#username').val();
 		var password = $('#password').val();
-		
-		if(username ==''){
-			alert("Please enter a Username.");
+        
+		if(username =='' || /^[0-9a-zA-Z ]+$/.test(username)==0){
+			alert("Please enter a valid Username.");
 		}
-		else if(password == ''){
-			alert("Please enter a Password.");
+		//else if(password == ''){
+        else if (password == ' ' || /^[0-9a-zA-Z ]+$/.test(password)==0) {
+			alert("Please enter a valid Password.");
 		}
 		else {
 		

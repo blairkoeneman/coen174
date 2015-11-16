@@ -74,9 +74,13 @@ function addCourse() {
 	//
 	//
 	//
-	if(courseNumber =='' || foundationCourse == '' || universityName == ''){
-		alert("You must enter in fields");
-	}else {
+    if(courseNumber == '') {
+		alert("You must enter in the course number field.");
+	}
+    else if(/^[0-9a-zA-Z ]+$/.test(courseNumber)==0){
+        alert("You must enter in a valid course number.");
+    }
+    else {
 
 	var Courses = Parse.Object.extend("Courses");
 	var courses = new Courses();
@@ -110,8 +114,8 @@ function addUniversity() {
 	uni.id = $('#newUniversity').val();
 	
 	var universityName = $('#newUniversity').val();
-	if(universityName == ''){
-		alert("You must enter in fields");
+	if(universityName == '' || /^[0-9a-zA-Z ]+$/.test(universityName)==0){
+		alert("You must enter in a valid University Name.");
 	}else {
 
 
@@ -138,8 +142,8 @@ function addFoundation() {
 	
 	var foundationCourse = $('#newFoundation').val();
 
-	if(foundationCourse == ''){
-		alert("You must enter in fields");
+	if(foundationCourse == '' || /^[0-9a-zA-Z ]+$/.test(foundationCourse)==0){
+		alert("You must enter in a valid Foundation Course name.");
 	}else {
 
 	var Foundation = Parse.Object.extend("Foundation");
