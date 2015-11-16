@@ -87,38 +87,34 @@ $(document).ready(function(e) {
 		
 		var notes = $('#notes').val();
 
-		//LOOK AT THIS BLAIR
-		//Add regex and stuff from login and repeat 
-		//for the other add functionalities.
-		//Thank you.
-		//
-		//
-		//
-		if(courseNumber =='' || foundationCourse == '' || universityName == ''){
-			alert("You must enter in fields");
-		}else {
+		if(courseNumber == ''){
+			alert("You must enter in the course number field.");
+		}else if (/^[0-9a-zA-Z ]+$/.test(courseNumber)==0){
+			alert("You must enter in a valid coursenumber.");
+		}else{
 
-		var Courses = Parse.Object.extend("Courses");
-		var courses = new Courses();
+			var Courses = Parse.Object.extend("Courses");
+			var courses = new Courses();
 
-		courses.set("course", courseNumber);
-		courses.set("universityName", universityName);
-		courses.set("university", uni);
-	    courses.set("courseEquivalent", foundationCourse);
-	    courses.set("equivalency", foundation);
-		courses.set("notes", notes);
-		
-			courses.save(null, {
-	  		success: function(courses) {
-	    		// Execute any logic that should take place after the object is saved.
-	    		alert('New object created with objectId: ' + courses.id);
-	  		},
-	  		error: function(courses, error) {
-	    		// Execute any logic that should take place if the save fails.
-	    		// error is a Parse.Error with an error code and message.
-	    		alert('Failed to create new Course, with error code: ' + error.message);
-	  		}
-		});
+			courses.set("course", courseNumber);
+			courses.set("universityName", universityName);
+			courses.set("university", uni);
+		    courses.set("courseEquivalent", foundationCourse);
+		    courses.set("equivalency", foundation);
+			courses.set("notes", notes);
+			
+				courses.save(null, {
+		  		success: function(courses) {
+		    		// Execute any logic that should take place after the object is saved.
+		    		if(alert('New object created with objectId: ' + courses.id)){}
+		    		else window.location.reload();
+		  		},
+		  		error: function(courses, error) {
+		    		// Execute any logic that should take place if the save fails.
+		    		// error is a Parse.Error with an error code and message.
+		    		alert('Failed to create new Course, with error code: ' + error.message);
+		  		}
+			});
 		}
 
 	}
@@ -131,18 +127,26 @@ $(document).ready(function(e) {
 		
 		var universityName = $('#newUniversity').val();
 
-		var University = Parse.Object.extend("University");
-		var university = new University();
-		university.set("name", universityName);
-		university.save(null, {
-			success: function(university) {
-				alert('New University added: ' + universityName);
-				uni.id = university;
-			},
-			error: function(university, error) {
-				alert('Failed to create new University, with error code: ' + error.message);
-			}
-		});
+		if(universityName == ''){
+			alert("You must enter in the course number field.");
+		}else if (/^[0-9a-zA-Z ]+$/.test(universityName)==0){
+			alert("You must enter in a valid coursenumber.");
+		}else{
+
+			var University = Parse.Object.extend("University");
+			var university = new University();
+			university.set("name", universityName);
+			university.save(null, {
+				success: function(university) {
+					if(alert('New University added: ' + universityName)){}
+					else window.location.reload();
+					uni.id = university;
+				},
+				error: function(university, error) {
+					alert('Failed to create new University, with error code: ' + error.message);
+				}
+			});
+		}
 	}
 
 	function addFoundation() {
@@ -153,94 +157,28 @@ $(document).ready(function(e) {
 		
 		var foundationCourse = $('#newFoundation').val();
 
-		var Foundation = Parse.Object.extend("Foundation");
-		var foundation = new Foundation();
-		foundation.set("course", foundationCourse);
-		foundation.save(null, {
-			success: function(foundation) {
-				alert('New Foundation Course added: ' + foundationCourse);
-				foundation.id = foundation;
-			},
-			error: function(foundation, error) {
-				alert('Failed to create new Foundation Course, with error code: ' + error.message);
-			}
-		});
+		if(foundationCourse == ''){
+			alert("You must enter in the course number field.");
+		}else if (/^[0-9a-zA-Z ]+$/.test(foundationCourse)==0){
+			alert("You must enter in a valid coursenumber.");
+		}else{
+
+			var Foundation = Parse.Object.extend("Foundation");
+			var foundation = new Foundation();
+			foundation.set("course", foundationCourse);
+			foundation.save(null, {
+				success: function(foundation) {
+					if(alert('New Foundation Course added: ' + foundationCourse)){}
+						else window.location.reload();
+					foundation.id = foundation;
+				},
+				error: function(foundation, error) {
+					alert('Failed to create new Foundation Course, with error code: ' + error.message);
+				}
+			});
+		}
 	}
 
-
-	
-
-
-// function checkDup(foundationCourse, universityName, courseNumber) {
-// 	var count = 0;
-// 	var query = new Parse.Query("Courses");
-// 	query.equalTo("course", courseNumber);
-// 		query.find({
-//   			success: function(results) {
-//     		// Do something with the returned Parse.Object values
-//     		alert("Checking Duplicates");
-//     			for (var i = 0; i < results.length; i++) {
-//     				var object = results[i];
-//       				var uName = object.get('universityName');
-//       				var fCourse = object.get('courseEquivalent');
-//       				if((uName == universityName) && (fCourse == foundationCourse)){
-//       					count++;
-// 					}		
-//     			}
-
-//   			},
-//   			error: function(error) {
-//     		alert("Error: " + error.code + " " + error.message);
-//   			}
-// 		});
-//     			if (count > 0){
-//     				return false;
-//     			}else{
-//     				return true;
-//     			}
-// }	
-	
-	
-	
-	
-	//check duplicates
-	
-	//var duplicate = checkDup(foundationCourse, universityName, courseNumber, courses);
-	//if(duplicate == 1){
-	//	alert("duplicate found - return");
-	//	return;
-	//}	
-
-// 	Parse.Cloud.beforeSave("Courses", function(request, response) {
-//     if (!request.object.isNew()) {
-//       // Let existing object updates go through
-//       response.success();
-//     }
-//     var query = new Parse.Query(Courses);
-//     // Add query filters to check for uniqueness
-//     query.equalTo("course", courseNumber);
-//     query.first().then(function(existingObject) {
-//       if (existingObject) {
-//         // Update existing object
-//         // existingObject.set("score", request.object.get("score")); Can update previous entry if needed
-//         return existingObject.save();
-//       } else {
-//         // Pass a flag that this is not an existing object
-//         return Parse.Promise.as(false);
-//       }
-//     }).then(function(existingObject) {
-//       if (existingObject) {
-//         // Existing object, stop initial save
-//         response.error("Existing object");
-//       } else {
-//         // New object, let the save go through
-//         response.success();
-//       }
-//     }, function (error) {
-//       response.error("Error performing checks or saves.");
-//     });
-// });
-	
 
 	
 
