@@ -2,6 +2,7 @@ $(document).ready(function(e) {
 	Parse.initialize("xoKIhEIxEK5SxBRVMcucXhjd2wzFwMKGwSUoynot", "fXKCq8wQgTcOpoBkRhzf2DUZDofbdFp9bM8IL1Eo");
 	var currentUser = Parse.User.current();
 
+	if(currentUser) {
 		$('[data-toggle="tooltip"]').tooltip();
 		$('.selectpicker').selectpicker({
 			style: 'btn-white',
@@ -180,16 +181,19 @@ $(document).ready(function(e) {
 				}
 
 			
-		});		
-		$('#login').click(function(){
-			console.log("Performing Login");
+		});
+		$('#logout').click(function(){
+			console.log("Performing Logout");
 
 			if(Parse.User.current()){
-				console.log("Already logged in");
-				window.location.href = "index_advisor.html";
-			}else{
-				window.location.href = "login.html";
+				console.log("Sucessfully logged out");
+				Parse.User.logOut();
+
+				if(Parse.User.current())
+					console.log("Failed to logout");
 			}
+
+			window.location.href= "index_student.html";
 		});
 		$('#universitysearch').click(function(){
 			$('#table-catalog tbody').remove();
@@ -226,4 +230,9 @@ $(document).ready(function(e) {
 
 			}	
 		});
+	}
+	else{
+		alert("You must be logged in to view this page");
+		window.location.href="login.html";
+	}
 });

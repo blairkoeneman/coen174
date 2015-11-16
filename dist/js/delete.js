@@ -3,179 +3,234 @@ $(document).ready(function(e) {
 	$('.selectpicker').selectpicker({
 		style: 'btn-white',
 	});
+	var currentUser = Parse.User.current();
 
-	var dropdown = document.getElementById("foundation");
-	if (dropdown){
-		var foundations = Parse.Object.extend("Foundation");
-		var query =  new Parse.Query(foundations);
-		query.find({
-			success: function(results) {
-				for (var i = 0; i < results.length; i++) {
-					var object = "<option value='" + results[i].id +"'>" + results[i].get("course") + "</option>";
-					$('#foundation').append(object);
-					$('#foundation2').append(object);
-				}
-				
-				$('#foundation').selectpicker('refresh');
-				$('#foundation2').selectpicker('refresh');
-
-			},
-			error: function(error) {
-				alert("Error: " + error.code + " " + error.message);
-			}
-		});
-	}
-	
-	var dropdown = document.getElementById("university");
-	if (dropdown){
-		var unis = Parse.Object.extend("University");
-		var query =  new Parse.Query(unis);
-		query.find({
-			success: function(results) {
-				for (var i = 0; i < results.length; i++) {
-					var object = "<option value='" + results[i].id +"'>" + results[i].get("name") + "</option>";
-					$('#university').append(object);
-				}
-				
-				$('#university').selectpicker('refresh');
-
-			},
-			error: function(error) {
-				alert("Error: " + error.code + " " + error.message);
-			}
-		});
-	}
-
-	$('#university').on('change', function(){
-		var classlist = document.getElementById("courses");
-		if (classlist){
-			
-			$('#courses').empty();
-			var Courses = Parse.Object.extend("Courses");
-
-			var University = Parse.Object.extend("University");
-			var uniCourse = new University();
-			uniCourse.id = $('#university :selected').val();
-			var query = new Parse.Query(Courses);
-
-			query.equalTo("university", uniCourse);
-
+	if(currentUser) {
+		var dropdown = document.getElementById("foundation");
+		var foundationlist = document.getElementById("foundationdrop");
+		if (dropdown && foundationlist){
+			var foundations = Parse.Object.extend("Foundation");
+			var query =  new Parse.Query(foundations);
 			query.find({
 				success: function(results) {
-					alert("Successfully retrieved " + results.length + " courses.");
-
-					for( var i = 0; i <results.length; i++) {
-						var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option>";
-						$('#courses').append(object);
+					for (var i = 0; i < results.length; i++) {
+						var object = "<option value='" + results[i].id +"'>" + results[i].get("course") + "</option>";
+						$('#foundation').append(object);
+						$('#foundationdrop').append(object);
 					}
+					
+					$('#foundation').selectpicker('refresh');
+					$('#foundationdrop').selectpicker('refresh');
 
-					$('#courses').selectpicker('refresh');
 				},
 				error: function(error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
 		}
-	});
+		
+		var universitydrop = document.getElementById("university");
+		var universitydroplist = document.getElementById("universitydrop");
+		if (universitydrop && universitydroplist){
+			var unis = Parse.Object.extend("University");
+			var query =  new Parse.Query(unis);
+			query.find({
+				success: function(results) {
+					for (var i = 0; i < results.length; i++) {
+						var object = "<option value='" + results[i].id +"'>" + results[i].get("name") + "</option>";
+						$('#university').append(object);
+						$('#universitydrop').append(object);
+					}
+					
+					$('#university').selectpicker('refresh');
+					$('#universitydrop').selectpicker('refresh');
 
-
-});
-
-function deleteCourse() {
-
-	//variables
-	var foundationCourse = $('#foundation :selected').text();
-
-	var Foundation = Parse.Object.extend("Foundation");
-	var foundation = new Foundation();
-	foundation.id = $('#foundation :selected').val();
-
-	var universityName = $('#university :selected').text();
-
-	var Uni = Parse.Object.extend("University");
-	var uni = new Uni();
-	uni.id = $('#university :selected').val();
-
-	var courseNumber = $('#course_number').val();
-	
-	var notes = $('#notes').val();
-
-	var Courses = Parse.Object.extend("Courses");
-	var courses = new Courses();
-
-	courses.set("course", courseNumber);
-	courses.set("universityName", universityName);
-	courses.set("university", uni);
-    courses.set("courseEquivalent", foundationCourse);
-    courses.set("equivalency", foundation);
-	
-		courses.destroy({
-  		success: function(courses) {
-    		// Execute any logic that should take place after the object is saved.
-    		alert('New object created with objectId: ' + courses.id);
-  		},
-  		error: function(courses, error) {
-    		// Execute any logic that should take place if the save fails.
-    		// error is a Parse.Error with an error code and message.
-    		alert('Failed to create new object, with error code: ' + error.message);
-  		}
-	});
-
-}
-
-function deleteUniversity() {
-
-	var Uni = Parse.Object.extend("University");
-	var uni = new Uni();
-	uni.id = $('#newUniversity').val();
-	
-	var universityName = $('#newUniversity').val();
-
-	var University = Parse.Object.extend("University");
-	var university = new University();
-	university.set("name", universityName);
-	university.save(null, {
-		success: function(university) {
-			alert('New University added: ' + universityName);
-			uni.id = university;
-			alert(uni);
-		},
-		error: function(university, error) {
-			alert('Error');
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
 		}
-	});
-}
 
-function deleteFoundation() {
+		$('#university').on('change', function(){
+			var classlist = document.getElementById("courses");
+			if (classlist){
+				
+				$('#courses').empty();
+				var Courses = Parse.Object.extend("Courses");
 
-	var Foundation = Parse.Object.extend("Foundation");
-	var foundation = new Foundation();
-	foundation.id = $('#newFoundation').val();
-	
-	var foundationCourse = $('#newFoundation').val();
+				var University = Parse.Object.extend("University");
+				var uniCourse = new University();
+				uniCourse.id = $('#university :selected').val();
+				var query = new Parse.Query(Courses);
 
-	var Foundation = Parse.Object.extend("Foundation");
-	var foundation = new Foundation();
-	foundation.set("course", foundationCourse);
-	foundation.destroy(foundation, {
-		success: function(foundation) {
-			alert('New Foundation Course added: ' + foundationCourse);
-			foundation.id = foundation;
-			alert(foundation);
-		},
-		error: function(foundation, error) {
-			alert('Error');
-		}
-	});
-}
+				query.equalTo("university", uniCourse);
 
-//////
-myObject.destroy({
-  success: function(myObject) {
-    // The object was deleted from the Parse Cloud.
-  },
-  error: function(myObject, error) {
-    // The delete failed.
-    // error is a Parse.Error with an error code and message.
-  }
+				query.find({
+					success: function(results) {
+						for( var i = 0; i <results.length; i++) {
+							var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option>";
+							$('#courses').append(object);
+						}
+
+						$('#courses').selectpicker('refresh');
+					},
+					error: function(error) {
+						alert("Error: " + error.code + " " + error.message);
+					}
+				});
+			}
+		});
+		$('#logout').click(function(){
+			console.log("Performing Logout");
+
+			if(Parse.User.current()){
+				console.log("Sucessfully logged out");
+				Parse.User.logOut();
+
+				if(Parse.User.current())
+					console.log("Failed to logout");
+			}
+			window.location.href= "index_student.html";
+		});
+	}else{
+		alert("You must be logged in to view this page");
+		window.location.href="login.html";
+
+	}
+
+
+	function deleteCourse() {
+
+		//variables
+		
+		var myCourses='';
+		
+		var foundationCourse = $('#foundation :selected').text();
+
+		var Foundation = Parse.Object.extend("Foundation");
+		var foundation = new Foundation();
+		foundation.id = $('#foundation :selected').val();
+
+		var universityName = $('#university :selected').text();
+
+		var Uni = Parse.Object.extend("University");
+		var uni = new Uni();
+		uni.id = $('#university :selected').val();
+
+		var courseNumber = $('#course_number').val();
+		
+		var notes = $('#notes').val();
+
+		var Courses = Parse.Object.extend("Courses");
+		var courses = new Courses();
+		
+		//delete equivalency
+		var uniID = $('#university :selected').text();
+		var foundationID = $('#foundation :selected').text();
+		var classID = $('#courses :selected').text();
+
+		var Courses = Parse.Object.extend("Courses");
+
+		var query = new Parse.Query(Courses);
+		query.equalTo("universityName", uniID);
+		query.equalTo("course", classID);
+		query.equalTo("courseEquivalent", foundationID);
+		query.find({
+				success: function(results) {
+					results[0].destroy({});
+					alert("Successfully deleted Equivalency.");
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+		});
+	}
+
+	function deleteUniversity() {
+
+		var Uni = Parse.Object.extend("University");
+		var uni = new Uni();
+		uni.id = $('#universitydrop').val();
+		
+		var universityName = $('#universitydrop :selected').val();
+		//this picks up the ID
+
+		//delete from University class
+		var University = Parse.Object.extend("University");
+		var university = new University();
+		
+		var query = new Parse.Query(University);
+		query.get(universityName, {
+	  		success: function(myObj) {
+	    		// The object was retrieved successfully.
+	    		myObj.destroy({});
+	  		},
+	  		error: function(object, error) {
+	    		// The object was not retrieved successfully.
+	    		// error is a Parse.Error with an error code and description.
+	  		}
+		});
+		
+		//delete from Courses class
+		var uniID = $('#universitydrop :selected').text();
+
+		var Courses = Parse.Object.extend("Courses");
+
+		var query = new Parse.Query(Courses);
+		query.equalTo("universityName", uniID);
+		query.find({
+				success: function(results) {
+					Parse.Object.destroyAll(results);
+					alert("Successfully deleted University.");
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+		});
+
+	}
+
+
+	function deleteFoundation() {
+
+		var Foundation = Parse.Object.extend("Foundation");
+		var foundation = new Foundation();
+		foundation.id = $('#foundationdrop').val();
+		
+		var foundationCourse = $('#foundationdrop :selected').val();
+
+		var Foundation = Parse.Object.extend("Foundation");
+		var foundation = new Foundation();
+
+		var query = new Parse.Query(Foundation);
+		query.get(foundationCourse, {
+	  		success: function(myObj) {
+	    		// The object was retrieved successfully.
+	    		myObj.destroy({});
+	  		},
+	  		error: function(object, error) {
+	    		// The object was not retrieved successfully.
+	    		// error is a Parse.Error with an error code and description.
+	  		}
+		});
+		
+		//delete from Courses class
+		var foundationID = $('#foundationdrop :selected').text();
+
+		var Courses = Parse.Object.extend("Courses");
+
+		var query = new Parse.Query(Courses);
+		query.equalTo("courseEquivalent", foundationID);
+		query.find({
+				success: function(results) {
+					Parse.Object.destroyAll(results);
+					alert("Successfully deleted Foundation Course.");
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+		});	
+	}
+
 });
