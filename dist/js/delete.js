@@ -148,6 +148,7 @@ function deleteUniversity() {
   		success: function(myObj) {
     		// The object was retrieved successfully.
     		myObj.destroy({});
+    		alert("Successfully deleted University.");
   		},
   		error: function(object, error) {
     		// The object was not retrieved successfully.
@@ -165,7 +166,6 @@ function deleteUniversity() {
 	query.find({
 			success: function(results) {
 				Parse.Object.destroyAll(results);
-				alert("Successfully deleted University.");
 			},
 			error: function(error) {
 				alert("Error: " + error.code + " " + error.message);
@@ -191,6 +191,7 @@ function deleteFoundation() {
   		success: function(myObj) {
     		// The object was retrieved successfully.
     		myObj.destroy({});
+    		alert("Successfully deleted Foundation Course.");
   		},
   		error: function(object, error) {
     		// The object was not retrieved successfully.
@@ -208,7 +209,6 @@ function deleteFoundation() {
 	query.find({
 			success: function(results) {
 				Parse.Object.destroyAll(results);
-				alert("Successfully deleted Foundation Course.");
 			},
 			error: function(error) {
 				alert("Error: " + error.code + " " + error.message);
