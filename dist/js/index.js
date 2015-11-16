@@ -31,8 +31,6 @@ $(document).ready(function(e) {
 			var query =  new Parse.Query(university);
 			query.find({
 				success: function(results) {
-					alert("Successfully retrieved " + results.length + " universities.");
-
 					for (var i = 0; i < results.length; i++) {
 
 						var object = "<option value='" + results[i].id +"'>" + results[i].get('name') + "</option>";
@@ -66,8 +64,6 @@ $(document).ready(function(e) {
 
 				query.find({
 					success: function(results) {
-						alert("Successfully retrieved " + results.length + " courses.");
-
 						for( var i = 0; i <results.length; i++) {
 							var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option>";
 							$('#courses').append(object);
@@ -103,7 +99,6 @@ $(document).ready(function(e) {
 				// query.equalTo("courseEquivalent", selected);
 				query.find({
 					success: function(results) {
-						alert("Successfully retrieved " + results.length + " equivalent courses.");
 						for(var i = 0; i < results.length; i++) {
 							var object = results[i];
 							myCourses+='<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
@@ -208,7 +203,6 @@ $(document).ready(function(e) {
 				query.equalTo("course", coursename);
 				query.find({
 					success: function(results) {
-						alert("Successfully retrieved " + results.length + " equivalent courses.");
 						for(var i = 0; i < results.length; i++) {
 							var object = results[i];
 							myCourses+='<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
