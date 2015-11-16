@@ -2,89 +2,10 @@ $(document).ready(function(e) {
 	Parse.initialize("xoKIhEIxEK5SxBRVMcucXhjd2wzFwMKGwSUoynot", "fXKCq8wQgTcOpoBkRhzf2DUZDofbdFp9bM8IL1Eo");
 	var currentUser = Parse.User.current();
 
-<<<<<<< HEAD
-// function toggleSelectAll(control) {
-//     var allOptionIsSelected = (control.val() || []).indexOf("All") > -1;
-//     function valuesOf(elements) {
-//         return $.map(elements, function(element) {
-//             return element.value;
-//         });
-//     }
-
-//     if (control.data('allOptionIsSelected') != allOptionIsSelected) {
-//         // User clicked 'All' option
-//         if (allOptionIsSelected) {
-//             // Can't use .selectpicker('selectAll') because multiple "change" events will be triggered
-//             control.selectpicker('val', valuesOf(control.find('option')));
-//         } else {
-//             control.selectpicker('val', []);
-//         }
-//     } else {
-//         // User clicked other option
-//         if (allOptionIsSelected && control.val().length != control.find('option').length) {
-//             // All options were selected, user deselected one option
-//             // => unselect 'All' option
-//             control.selectpicker('val', valuesOf(control.find('option:selected[value!=All]')));
-//             allOptionIsSelected = false;
-//         } else if (!allOptionIsSelected && control.val().length == control.find('option').length - 1) {
-//             // Not all options were selected, user selected all options except 'All' option
-//             // => select 'All' option too
-//             control.selectpicker('val', valuesOf(control.find('option')));
-//             allOptionIsSelected = true;
-//         }
-//     }
-//     control.data('allOptionIsSelected', allOptionIsSelected);
-// }
-	// $('#foundation').selectpicker().change(function(){toggleSelectAll($(this));}).trigger('change');
-
-
-
-
-
-	var scuclasses = document.getElementById("foundation");
-	var dropdown = document.getElementById("university");
-	var duplicate = document.getElementById("uniduplicate");
-	if(scuclasses){
-		var foundation = Parse.Object.extend("Foundation");
-		var query = new Parse.Query(foundation);
-		query.find({
-			success: function(results) {
-				for (var i = 0; i < results.length; i++) {
-					var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option";
-					$('#foundation').append(object);
-				}
-				$('#foundation').selectpicker('refresh');
-			},
-			error: function(error) {
-				alert("Error: " + error.code + " " + error.message);
-			}
-		});
-	}
-	if (dropdown && duplicate){
-		var university = Parse.Object.extend("University");
-		var query =  new Parse.Query(university);
-		query.find({
-			success: function(results) {
-
-				for (var i = 0; i < results.length; i++) {
-
-					var object = "<option value='" + results[i].id +"'>" + results[i].get('name') + "</option>";
-					$('#university').append(object);
-					$('#uniduplicate').append(object);
-				}
-				
-				$('#university').selectpicker('refresh');
-				$('#uniduplicate').selectpicker('refresh');
-
-			},
-			error: function(error) {
-				alert("Error: " + error.code + " " + error.message);
-			}
-=======
+	if(currentUser) {
 		$('[data-toggle="tooltip"]').tooltip();
 		$('.selectpicker').selectpicker({
 			style: 'btn-white',
->>>>>>> origin/master
 		});
 
 		var scuclasses = document.getElementById("foundation");
@@ -95,16 +16,9 @@ $(document).ready(function(e) {
 			var query = new Parse.Query(foundation);
 			query.find({
 				success: function(results) {
-<<<<<<< HEAD
-
-					for( var i = 0; i <results.length; i++) {
-						var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option>";
-						$('#courses').append(object);
-=======
 					for (var i = 0; i < results.length; i++) {
 						var object = "<option value='" + results[i].id +"'>" + results[i].get('course') + "</option";
 						$('#foundation').append(object);
->>>>>>> origin/master
 					}
 					$('#foundation').selectpicker('refresh');
 				},
@@ -118,11 +32,6 @@ $(document).ready(function(e) {
 			var query =  new Parse.Query(university);
 			query.find({
 				success: function(results) {
-<<<<<<< HEAD
-					for(var i = 0; i < results.length; i++) {
-						var object = results[i];
-						myCourses+='<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
-=======
 					alert("Successfully retrieved " + results.length + " universities.");
 
 					for (var i = 0; i < results.length; i++) {
@@ -130,7 +39,6 @@ $(document).ready(function(e) {
 						var object = "<option value='" + results[i].id +"'>" + results[i].get('name') + "</option>";
 						$('#university').append(object);
 						$('#uniduplicate').append(object);
->>>>>>> origin/master
 					}
 					
 					$('#university').selectpicker('refresh');
@@ -272,32 +180,20 @@ $(document).ready(function(e) {
 					});
 				}
 
-<<<<<<< HEAD
-		// var University = Parse.Object.extend("University");
-		// var universitySelect = new University();
-		// universitySelect.id = $('#university :selected').val();
-		// alert(universitySelect.id);
-		if(coursename != 'Choose your class...' && universityname != 'Choose your University...'){
-			var query = new Parse.Query(Courses);
-			query.equalTo("universityName", universityname);
-			query.equalTo("course", coursename);
-			query.find({
-				success: function(results) {
-					for(var i = 0; i < results.length; i++) {
-						var object = results[i];
-						myCourses+='<tr><td>' + object.get('courseEquivalent') + '</td><td>' + object.get('course') +'</td><td>' + object.get('notes') + '</td></tr>';
-=======
 			
-		});		
-		$('#login').click(function(){
-			console.log("Performing Login");
+		});
+		$('#logout').click(function(){
+			console.log("Performing Logout");
 
 			if(Parse.User.current()){
-				console.log("Already logged in");
-				window.location.href = "index_advisor.html";
-			}else{
-				window.location.href = "login.html";
+				console.log("Sucessfully logged out");
+				Parse.User.logOut();
+
+				if(Parse.User.current())
+					console.log("Failed to logout");
 			}
+
+			window.location.href= "index_student.html";
 		});
 		$('#universitysearch').click(function(){
 			$('#table-catalog tbody').remove();
@@ -327,7 +223,6 @@ $(document).ready(function(e) {
 					},
 					error: function(error) {
 						alert("Error: " + error.code + " " + error.message);
->>>>>>> origin/master
 					}
 				});
 			}else{
@@ -335,4 +230,9 @@ $(document).ready(function(e) {
 
 			}	
 		});
+	}
+	else{
+		alert("You must be logged in to view this page");
+		window.location.href="login.html";
+	}
 });

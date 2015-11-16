@@ -26,9 +26,14 @@
 
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.6.5.min.js"></script>
-    <script src="../dist/js/index.js" type="text/javascript" ></script>
+    <script src="../dist/js/index_advisor.js" type="text/javascript" ></script>
 
-
+        <!-- PDF EXPORT -->
+    <script type="text/javascript" src="../dist/js/tableExport.js"></script>
+    <script type="text/javascript" src="../dist/js/jquery.base64.js"></script>
+    <script type="text/javascript" src="../dist/js/jspdf/libs/sprintf.js"></script>
+    <script type="text/javascript" src="../dist/js/jspdf/jspdf.js"></script>
+    <script type="text/javascript" src="../dist/js/jspdf/libs/base64.js"></script>
 
     	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -69,25 +74,24 @@
 			<li><a href="delete.html" style="color: white">Delete from Catalog</a></li>
       		</ul>
       		<ul class="nav navbar-nav navbar-right">
-        		<li><a href="index_student.html" style="color: white">Log Out</a></li>
+        		<li id="logout"><a style="color:#fff;">Log Out</a></li>
       		</ul>
     	</div><!-- /.navbar-collapse -->
   	</div><!-- /.container-fluid -->
 	</nav>
 	<!--END NAV BAR-->
 
-	<!--CONTAINER-->
-	<div class="overall_container">
-		</br>
-		<!--SEARCH BY SCU COURSE-->
+  <div class="overall_container">
+    </br>
+    <!--SEARCH BY SCU COURSE-->
 <div id= "foundationSearch" class="indexBox">
       <div class="row" style="text-align:center;">
         <!-- SELECT A SCU COURSE -->
-		    <div class = "col-md-3">
-		    	<h4>Search by Foundation Course</h4>
-		    </div>
-		    
-		    <div class="col-md-3">
+        <div class = "col-md-3">
+          <h4>Search by Foundation Course</h4>
+        </div>
+        
+        <div class="col-md-3">
           <select class="selectpicker" id="foundation" name="foundationclasses" title='Choose SCU Course...'>
             <option value="All">All Classes</option>
             </select>   
@@ -102,6 +106,7 @@
         <div class="col-md-3"> 
           <button type="button" class="btn btn-success" id="coursesearch" style="background-color: #93191B; border-color: #93191B;">Search</button>
         	<img src="info.png" alt="More information" style="position: relative; left: 50px;" data-toggle="tooltip" data-placement="bottom" title="Search by an SCU Foundation course to see if an external university has equivalent courses.">
+
         </div>
   </div>
   <!--END CHOOSE SCU COURSE-->
@@ -113,13 +118,13 @@
 
     <!-- SEARCH BY UNIVERSITY COURSE -->
   <div class="row" style="text-align:center;">
-		<!--CHOOSE UNIVERSITY COURSE-->
-		<div class="col-md-3">
-			<h4>Search by External Course</h4>
-		</div>
-		
-		
-		<div class="col-md-3">
+    <!--CHOOSE UNIVERSITY COURSE-->
+    <div class="col-md-3">
+      <h4>Search by External Course</h4>
+    </div>
+    
+    
+    <div class="col-md-3">
       <select class="selectpicker" id="uniduplicate" name="universityselect" title='Choose your University...'> 
       </select>
 			</br>
@@ -132,26 +137,25 @@
     <!-- SEARCH -->
     <div class="col-md-3">
       <button type="button" class="btn btn-success" id="universitysearch" style="background-color: #93191B; border-color: #93191B;">Search</button>
-    	<img src="info.png" alt="More information" style="position: relative; left: 50px;" data-toggle="tooltip" data-placement="bottom" title="Search by a course from an external university to see if it is equivalent to any SCU Foundation courses.">
+
+      <img src="info.png" alt="More information" style="position: relative; left: 50px;" data-toggle="tooltip" data-placement="bottom" title="Search by a course from an external university to see if it is equivalent to any SCU Foundation courses.">
     </div>
   </div>
 </div>
-		<!--END SEARCH BY UNIVERSITY COURSE-->
-
-		<!--TABLE-->
-		<table class="table table-striped" id="table-catalog">
-			<thead>
-    			<th style="color: #93191B">SCU Foundation Course</th>
-    			<th style="color: #93191B">University Course</th> 
-    			<th style="color: #93191B">Notes</th>
-  		</thead>
+    <!--END SEARCH BY UNIVERSITY COURSE-->
+ <button type="button" class="btn btn-default" id="export" onClick ="$('#table-catalog').tableExport({type:'pdf',escape:'false'});" style="margin-top:50px; color:#F5B732; background-color:#93191B">Export as PDF</button>
+    <!--TABLE-->
+    <table class="table table-striped" id="table-catalog">
+      <thead>
+          <th style="color: #93191B">SCU Course</th>
+          <th style="color: #93191B">University Course</th> 
+          <th style="color: #93191B">Notes</th>
+      </thead>
       <tbody>
         
       </tbody>
-		</table>
-		<!--END TABLE-->
-	</div>
-	<!--END CONTAINER-->
-
-  </body>
+    </table>
+    <!--END TABLE-->
+  </div>
+  <!--END CONTAINER-->
 </html>
